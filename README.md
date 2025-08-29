@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portfolio Iñaki.dev
 
-## Getting Started
+Este es mi **portfolio personal** desarrollado con [Next.js](https://nextjs.org) y estilizado con [Tailwind CSS](https://tailwindcss.com).  
+Aquí muestro mis proyectos, habilidades y formas de contacto.
 
-First, run the development server:
+## Tecnologías utilizadas
+
+- [Next.js](https://nextjs.org) – framework de React para aplicaciones modernas.
+- [React](https://reactjs.org) – librería de componentes.
+- [Tailwind CSS](https://tailwindcss.com) – para estilos utilitarios y responsivos.
+- [React Icons](https://react-icons.github.io/react-icons/) – para los íconos de tecnologías y redes.
+- [Node.js](https://nodejs.org) – entorno de backend.
+- [MySQL](https://www.mysql.com/) – base de datos para proyectos que lo requieren.
+- [Vercel](https://vercel.com) – deployment en producción.
+
+## Inicio rápido
+
+Para ejecutar el proyecto en tu máquina local:
 
 ```bash
+# Instalar dependencias
+npm install
+# o
+yarn
+# o
+pnpm install
+
+# Levantar el servidor de desarrollo
 npm run dev
-# or
+# o
 yarn dev
-# or
+# o
 pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abre http://localhost:3000
+ en tu navegador.
+Edita las páginas en app/page.tsx o los componentes en src/components/ para ver los cambios en tiempo real.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Estructura del proyecto:
+├─ app/              # Páginas y rutas principales
+├─ src/components/   # Componentes reutilizables (Hero, Techs, Projects, Contact)
+├─ public/           # Imágenes y assets estáticos
+├─ styles/           # Estilos globales y variables
+├─ package.json
+└─ README.md
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Secciones principales:
+    Hero – Introducción y presentación personal.
 
-## Learn More
+    Tecnologías – Lista de skills y herramientas con filtro interactivo.
 
-To learn more about Next.js, take a look at the following resources:
+    Proyectos – Muestra de proyectos destacados con tarjetas interactivas.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+    Contacto – Formas de contactarme (email, GitHub y LinkedIn).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Deployment
+    El proyecto se puede desplegar fácilmente en Vercel:
 
-## Deploy on Vercel
+    Crear una cuenta en Vercel.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+    Conectar tu repositorio de GitHub.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+    Deploy automático al hacer push a main.
+
+Hecho por [Inaki Fariñas](https://github.com/InakiFarinas)

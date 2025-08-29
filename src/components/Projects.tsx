@@ -1,15 +1,16 @@
 import ProjectCard from './ProjectCard';
 
 const proyectos = [
-  { nombre: 'Task Manager', descripcion: 'Sistema de gestión de tareas', url: '#', imagen: '/projects/task-manager.png' },
-  { nombre: 'Tienda Cerámica', descripcion: 'Web de venta y clases de cerámica', url: '#', imagen: '/projects/ceramica.png' },
+  { nombre: 'Task Manager', descripcion: 'Sistema de gestión de tareas', url: '#', imagen: '/inmobiliaria.jpg' },
+  { nombre: 'Inmobiliaria', descripcion: 'Web de venta y alquiler de inmuebles', url: '#', imagen: '/inmobiliaria.jpg' },
 ];
 
 export default function Projects() {
   return (
-    <section className="flex flex-col gap-6 w-full max-w-6xl mx-auto bg-white/80 dark:bg-gray-800/80 rounded-xl p-8 shadow-md border border-accent/20 transition-colors duration-300">
+    <section id="proyectos" className="flex flex-col gap-6 w-full max-w-6xl mx-auto bg-gradient-to-br from-gray-50 via-white to-gray-100 
+      dark:from-[#0d1117] dark:via-[#161b22] dark:to-[#0d1117] text-gray-900 dark:text-gray-50 rounded-xl p-8 shadow-md border border-gray-300 dark:border-gray-700 border-accent/20">
       {/* Título */}
-      <h2 className="text-3xl font-bold text-foreground">Proyectos</h2>
+      <h2 className="text-3xl font-bold">Proyectos</h2>
       <p className="text-gray-700 dark:text-gray-300 text-lg">Algunos proyectos destacados que he desarrollado.</p>
 
       {/* Grid de proyectos */}

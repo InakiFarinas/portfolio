@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
+import Header from '@/components/Header';
+import ThemeProvider from '@/theme/theme-provider';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -17,36 +19,15 @@ export const metadata: Metadata = {
   description: 'Portfolio de Iñaki.dev, desarrollador Fullstack',
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        {/* Contenedor principal */}
-        <div className="flex flex-col min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 transition-colors duration-500">
-
-          {/* Header */}
-          <header className="w-full py-6 px-6 sm:px-20 flex justify-between items-center max-w-6xl mx-auto bg-white/70 dark:bg-gray-900/70 backdrop-blur-md rounded-xl shadow-sm transition-colors duration-500">
-            <h1 className="text-2xl font-bold text-foreground">Iñaki.dev</h1>
-            <nav className="flex gap-6 text-gray-700 dark:text-gray-300">
-              <a href="#proyectos" className="hover:text-accent transition-colors">Proyectos</a>
-              <a href="#contacto" className="hover:text-accent transition-colors">Contacto</a>
-            </nav>
-          </header>
-
-          {/* Main content */}
-          <main className="flex-grow w-full font-sans min-h-screen px-8 sm:px-20 py-12 flex flex-col gap-20 bg-white/80 dark:bg-gray-800/80 rounded-xl shadow-inner transition-colors duration-500">
-            {children}
-          </main>
-
-          {/* Footer */}
-          <footer className="w-full py-8 px-6 sm:px-20 mt-12 border-t border-gray-200 dark:border-gray-700 text-center text-gray-600 dark:text-gray-400 bg-white/70 dark:bg-gray-900/70 backdrop-blur-md rounded-xl shadow-sm transition-colors duration-500">
-            © {new Date().getFullYear()} Iñaki M. Fariñas. Todos los derechos reservados.
-          </footer>
-        </div>
+    <html lang="es" suppressHydrationWarning>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <Header />
+          <main className="flex-1 w-full font-sans px-8 sm:px-20 py-12 flex flex-col gap-40 bg-white dark:bg-black mx-auto transition-colors duration-500">{children}</main>
+          <footer className="w-full py-8 px-6 mt-20 sm:px-20 border-t border-gray-200 dark:border-gray-700 text-center text-gray-600 dark:text-gray-400 bg-white/70 dark:bg-gray-900/70 backdrop-blur-md shadow-sm transition-colors duration-500">© {new Date().getFullYear()} Iñaki M. Fariñas. Todos los derechos reservados.</footer>
+        </ThemeProvider>  
       </body>
     </html>
   );
