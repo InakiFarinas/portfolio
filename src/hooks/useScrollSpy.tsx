@@ -1,8 +1,8 @@
-"use client";
-import { useEffect, useState } from "react";
+'use client';
+import { useEffect, useState } from 'react';
 
 export function useScrollSpy(sectionIds: string[], offset = 100) {
-  const [activeId, setActiveId] = useState<string>("");
+  const [activeId, setActiveId] = useState<string>('');
 
   useEffect(() => {
     const observers: IntersectionObserver[] = [];
@@ -18,8 +18,8 @@ export function useScrollSpy(sectionIds: string[], offset = 100) {
           }
         },
         {
-          rootMargin: `-${offset}px 0px -70% 0px`,
-          threshold: 0.1,
+          rootMargin: `0px 0px -30% 0px`,
+          threshold: 0,
         }
       );
 

@@ -10,7 +10,6 @@ Aquí muestro mis proyectos, habilidades y formas de contacto.
 - [Tailwind CSS](https://tailwindcss.com) – para estilos utilitarios y responsivos.
 - [React Icons](https://react-icons.github.io/react-icons/) – para los íconos de tecnologías y redes.
 - [Node.js](https://nodejs.org) – entorno de backend.
-- [MySQL](https://www.mysql.com/) – base de datos para proyectos que lo requieren.
 - [Vercel](https://vercel.com) – deployment en producción.
 
 ## Inicio rápido
@@ -37,8 +36,11 @@ Abre http://localhost:3000
 Edita las páginas en app/page.tsx o los componentes en src/components/ para ver los cambios en tiempo real.
 
 Estructura del proyecto:
-├─ app/              # Páginas y rutas principales
+├─ src/app/              # Páginas y rutas principales
 ├─ src/components/   # Componentes reutilizables (Hero, Techs, Projects, Contact)
+├─ src/hooks/        # Hooks y funciones de utilidad
+├─ src/theme/        # Temas y estilos
+├─ src/components/UI/ # Componentes de interfaz de usuario
 ├─ public/           # Imágenes y assets estáticos
 ├─ styles/           # Estilos globales y variables
 ├─ package.json
@@ -51,7 +53,7 @@ Secciones principales:
 
     Proyectos – Muestra de proyectos destacados con tarjetas interactivas.
 
-    Contacto – Formas de contactarme (email, GitHub y LinkedIn).
+    Contacto – Formas de contactarme ( email, telefono, mapa).
 
 Deployment
     El proyecto se puede desplegar fácilmente en Vercel:

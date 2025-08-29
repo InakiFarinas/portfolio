@@ -13,9 +13,9 @@ export default function AnimatedSection({ id, children }: SectionProps) {
   return (
     <div
       id={id}
-      className={`transition-all duration-700 ease-out transform ${
-        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-10' // aquí cambiamos a negativo
-      }`}
+      className={`transition-all duration-700 ease-out transform
+    ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6 sm:translate-y-10'}
+  `}
     >
       {children}
     </div>
