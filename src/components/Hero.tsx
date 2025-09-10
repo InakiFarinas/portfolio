@@ -1,24 +1,17 @@
 import Image from 'next/image';
-import { FaGithub, FaLinkedin } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaWhatsapp } from 'react-icons/fa';
+import SectionContainer from './SectionContainer';
 
 export default function Hero() {
   return (
-    <section
-      id="About"
-      className="flex flex-col sm:flex-row items-start gap-8 py-16 mx-auto px-6 max-w-6xl sm:px-20 rounded-xl border border-gray-300 dark:border-gray-700 border-accent/20 shadow-lg shadow-accent/30 
-      bg-gradient-to-br from-gray-50 via-white to-gray-100 
-      dark:from-[#0d1117] dark:via-[#161b22] dark:to-[#0d1117] 
-      transition-colors duration-500"
+    <SectionContainer
+      id="about"
+      ariaLabel="Presentación personal"
+      className="flex-col sm:flex-row py-16"
     >
       {/* Avatar */}
       <div className="flex-shrink-0">
-        <Image
-          src="/avatar.jpg"
-          alt="Iñaki"
-          width={150}
-          height={150}
-          className="rounded-full border-2 border-cyan-500"
-        />
+        <Image src="/avatar.jpg" alt="Foto de Iñaki M. Fariñas, desarrollador Web Fullstack" width={150} height={150} className="rounded-full border-2 border-cyan-500" />
       </div>
 
       {/* Texto principal */}
@@ -52,7 +45,7 @@ export default function Hero() {
           </div>
         </h1>
 
-        <p className="text-lg sm:text-xl text-gray-700 dark:text-gray-300 max-w-2xl leading-relaxed">Soy desarrollador Web Fullstack. Me enfoco en crear soluciones eficientes, escalables y de alto rendimiento. Estudiante de Tecnicatura en desarrollo de software. Bienvenido a mi portfolio.</p>
+        <h2 className="text-lg sm:text-xl text-gray-700 dark:text-gray-300 max-w-2xl leading-relaxed">Soy desarrollador Web Fullstack. Me enfoco en crear soluciones eficientes, escalables y de alto rendimiento. Estudiante de Tecnicatura en desarrollo de software. Bienvenido a mi portfolio.</h2>
 
         {/* Botones + Redes sociales */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-start gap-6 mt-4 self-center sm:self-start">
@@ -72,15 +65,18 @@ export default function Hero() {
           {/* Redes sociales */}
           <div className="flex gap-6 text-2xl text-blue-500">
             {' '}
-            <a href="https://github.com/InakiFarinas" target="_blank" rel="noopener noreferrer" className="transition transform ease-in-out hover:scale-110 hover:text-[#06b6d4]">
+            <a href="https://github.com/InakiFarinas" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="transition transform ease-in-out hover:scale-110 hover:text-[#06b6d4]" title="Ir al repositorio de GitHub">
               <FaGithub />
             </a>
-            <a href="https://linkedin.com/in/fariñas-iñaki-manuel-0b88232b6" target="_blank" rel="noopener noreferrer" className="transition transform ease-in-out hover:scale-110 hover:text-[#06b6d4]">
+            <a href="https://linkedin.com/in/fariñas-iñaki-manuel-0b88232b6" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="transition transform ease-in-out hover:scale-110 hover:text-[#06b6d4]" title="Ir a mi perfil en LinkedIn">
               <FaLinkedin />
+            </a>
+            <a href="https://wa.me/5491135959887?text=Hola%20Iñaki,%20quiero%20contactarte%20por%20tu%20portfolio" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" className="transition transform ease-in-out hover:scale-110 hover:text-green-500" title="Contactar por WhatsApp">
+              <FaWhatsapp />
             </a>
           </div>
         </div>
       </div>
-    </section>
+    </SectionContainer>
   );
 }

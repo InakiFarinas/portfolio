@@ -9,10 +9,10 @@ interface ProjectCardProps {
 
 export default function ProjectCard({ nombre, descripcion, url, imagen }: ProjectCardProps) {
   return (
-    <a href={url} target="_blank" rel="noopener noreferrer" className="flex flex-col overflow-hidden rounded-xl border border-gray-300 dark:border-gray-700 border-accent/20 bg-white/80 dark:bg-gray-800/80 shadow-md transition-all duration-500 ease-in-out hover:scale-105 hover:shadow-lg">
+    <a href={url} target="_blank" rel="noopener noreferrer" aria-label={`Ir al proyecto ${nombre}`} className="flex flex-col overflow-hidden rounded-xl border border-gray-300 dark:border-gray-700 border-accent/20 bg-white/80 dark:bg-gray-800/80 shadow-md transition-all duration-500 ease-in-out hover:scale-105 hover:shadow-lg">
       {/* Imagen */}
       <div className="w-full h-48 relative">
-        <Image src={imagen} alt={nombre} fill className="object-cover" />
+        <Image src={imagen} alt={`Foto del proyecto ${nombre}`} fill className="object-cover" />
       </div>
 
       {/* Contenido */}
