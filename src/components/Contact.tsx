@@ -47,6 +47,7 @@ export default function Contact() {
       id="contacto"
       ariaLabel="Formulario de contacto"
       className="flex-col md:flex-row"
+      animate
     >
       {/* Formulario lado izquierdo */}
       <form className="flex-1 flex flex-col gap-4" onSubmit={customSubmit} method="POST" noValidate>

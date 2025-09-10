@@ -8,7 +8,7 @@ const proyectos = [
 
 export default function Projects() {
   return (
-    <SectionContainer id="proyectos" ariaLabel="Proyectos">
+    <SectionContainer id="proyectos" ariaLabel="Proyectos" animate>
       {/* Título */}
       <h2 className="text-3xl font-bold">Proyectos</h2>
       <p className="text-gray-700 dark:text-gray-300 text-lg">Algunos proyectos destacados que he desarrollado.</p>
