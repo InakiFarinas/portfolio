@@ -1,4 +1,4 @@
-"use client"
+'use client';
 import React from 'react';
 import { useScrollSpy } from '@/hooks/useScrollSpy';
 
@@ -11,7 +11,7 @@ interface SectionContainerProps {
 }
 
 export default function SectionContainer({ id, ariaLabel, className = '', animate = false, children }: SectionContainerProps) {
-  const activeId = animate ? useScrollSpy([id], 200) : undefined;
+  const activeId = useScrollSpy([id], 200);
   const isVisible = animate ? activeId === id : true;
 
   return (

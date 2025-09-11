@@ -7,11 +7,8 @@ export default function Home() {
   return (
     <>
         <Hero />
-
         <Projects/>
-
         <Techs/>
-
         <Contact />
     </>
   );
