@@ -1,66 +1,115 @@
-'use client';
-import { useState } from 'react';
-import { techs } from './techList';
-import SectionContainer from './SectionContainer';
+"use client";
+import { useState } from "react";
+import { techs } from "./techList";
+import SectionContainer from "./SectionContainer";
 
-type Category = 'todas' | 'frontend' | 'backend' | 'tools';
+type Category = "todas" | "frontend" | "backend" | "tools";
 
-const categoryColors: Record<string, string> = {
-  frontend: 'bg-blue-300 dark:bg-blue-700 text-blue-800 dark:text-blue-200',
-  backend: 'bg-green-300 dark:bg-green-700 text-green-800 dark:text-green-200',
-  tools: 'bg-yellow-300 dark:bg-yellow-700 text-yellow-800 dark:text-yellow-200',
+const categoryColors: Record<
+	string,
+	{ bg: string; text: string; border: string }
+> = {
+	frontend: {
+		bg: "bg-blue-50 dark:bg-blue-900/20",
+		text: "text-blue-600 dark:text-blue-400",
+		border: "border-blue-200 dark:border-blue-700",
+	},
+	backend: {
+		bg: "bg-green-50 dark:bg-green-900/20",
+		text: "text-green-600 dark:text-green-400",
+		border: "border-green-200 dark:border-green-700",
+	},
+	tools: {
+		bg: "bg-amber-50 dark:bg-amber-900/20",
+		text: "text-amber-600 dark:text-amber-400",
+		border: "border-amber-200 dark:border-amber-700",
+	},
 };
 
-const categoryHoverColors: Record<string, string> = {
-  frontend: 'hover:bg-blue-300 dark:hover:bg-blue-700 hover:text-blue-800 dark:hover:text-blue-200',
-  backend: 'hover:bg-green-300 dark:hover:bg-green-700 hover:text-green-800 dark:hover:text-green-200',
-  tools: 'hover:bg-yellow-300 dark:hover:bg-yellow-700 hover:text-yellow-800 dark:hover:text-yellow-200',
-  todas: 'hover:bg-blue-500 hover:text-white',
+const buttonColors: Record<string, string> = {
+	frontend: "hover:bg-blue-100 dark:hover:bg-blue-900/40",
+	backend: "hover:bg-green-100 dark:hover:bg-green-900/40",
+	tools: "hover:bg-amber-100 dark:hover:bg-amber-900/40",
+	todas: "hover:bg-blue-100 dark:hover:bg-blue-900/40",
 };
 
-const categoryActiveColors: Record<string, string> = {
-  frontend: 'bg-blue-300 dark:bg-blue-700 text-blue-800 dark:text-blue-200',
-  backend: 'bg-green-300 dark:bg-green-700 text-green-800 dark:text-green-200',
-  tools: 'bg-yellow-300 dark:bg-yellow-700 text-yellow-800 dark:text-yellow-200',
-  todas: 'bg-gradient-to-r from-blue-500 to-cyan-500 text-white',
+const buttonActiveColors: Record<string, string> = {
+	frontend:
+		"bg-blue-100 dark:bg-blue-900/40 border-blue-300 dark:border-blue-600",
+	backend:
+		"bg-green-100 dark:bg-green-900/40 border-green-300 dark:border-green-600",
+	tools:
+		"bg-amber-100 dark:bg-amber-900/40 border-amber-300 dark:border-amber-600",
+	todas: "bg-blue-100 dark:bg-blue-900/40 border-blue-300 dark:border-blue-600",
 };
 
 export default function Techs() {
-  const [filter, setFilter] = useState<Category>('todas');
+	const [filter, setFilter] = useState<Category>("todas");
 
-  const categories: Category[] = ['todas', 'frontend', 'backend', 'tools'];
-  const filteredTechs = filter === 'todas' ? techs : techs.filter((t) => t.category === filter);
+	const categories: Category[] = ["todas", "frontend", "backend", "tools"];
+	const filteredTechs =
+		filter === "todas" ? techs : techs.filter((t) => t.category === filter);
 
-  return (
-    <SectionContainer id="tecnologias" ariaLabel="Tecnologías utilizadas" animate>
-      {/* Título */}
-      <h2 className="text-3xl font-bold">Tecnologías</h2>
-      <p className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed">Estas son las tecnologías que utilizo en mis proyectos.</p>
+	return (
+		<SectionContainer
+			id="tecnologias"
+			ariaLabel="Tecnologías utilizadas"
+			animate
+		>
+			{/* Título */}
+			<div className="flex flex-col gap-2 mb-2">
+				<h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
+					Tecnologías
+				</h2>
+				<p className="text-gray-600 dark:text-gray-400 text-base">
+					Estas son las tecnologías que utilizo en mis proyectos.
+				</p>
+			</div>
 
-      {/* Botones de filtro */}
-      <div className="flex gap-3 flex-wrap mt-4" role="tablist" aria-label="Filtrar tecnologías">
-        {categories.map((cat) => (
-          <button
-            key={cat}
-            onClick={() => setFilter(cat)}
-            aria-pressed={filter === cat}
-            aria-label={`Filtrar por ${cat}`}
-            className={`px-4 py-2 rounded-lg font-medium transition-transform duration-500 transform
-              ${filter === cat ? `${categoryActiveColors[cat]} shadow-lg scale-105` : `bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 ${categoryHoverColors[cat]}`}`}
-          >
-            {cat.charAt(0).toUpperCase() + cat.slice(1)}
-          </button>
-        ))}
-      </div>
+			{/* Botones de filtro */}
+			<div
+				className="flex gap-3 flex-wrap mt-6 mb-8"
+				role="tablist"
+				aria-label="Filtrar tecnologías"
+			>
+				{categories.map((cat) => (
+					<button
+						key={cat}
+						onClick={() => setFilter(cat)}
+						aria-pressed={filter === cat}
+						aria-label={`Filtrar por ${cat}`}
+						className={`px-4 py-2 rounded-lg font-medium border transition-colors duration-300
+              ${filter === cat ? `border-blue-500 ${buttonActiveColors[cat]}` : `border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 ${buttonColors[cat]}`}`}
+					>
+						{cat.charAt(0).toUpperCase() + cat.slice(1)}
+					</button>
+				))}
+			</div>
 
-      {/* Lista de tecnologías */}
-      <ul className="flex flex-wrap gap-4 mt-4" aria-label="Lista de tecnologías">
-        {filteredTechs.map((tech) => (
-          <li key={tech.name} className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg font-medium shadow-sm transform duration-500 ease-in-out hover:scale-105 opacity-0 animate-fadeIn ${categoryColors[tech.category]}`} tabIndex={0} aria-label={tech.name} title={tech.name}>
-            {tech.icon} {tech.name}
-          </li>
-        ))}
-      </ul>
-    </SectionContainer>
-  );
+			{/* Grid de tecnologías como cards */}
+			<ul
+				className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
+				aria-label="Lista de tecnologías"
+			>
+				{filteredTechs.map((tech, index) => {
+					const colors = categoryColors[tech.category];
+					return (
+						<li
+							key={tech.name}
+							className={`flex items-center gap-3 p-4 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-0.5 opacity-0 animate-fadeIn`}
+							style={{ animationDelay: `${index * 50}ms` }}
+							tabIndex={0}
+							aria-label={tech.name}
+							title={tech.name}
+						>
+							<div className={`text-2xl ${colors.text}`}>{tech.icon}</div>
+							<span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+								{tech.name}
+							</span>
+						</li>
+					);
+				})}
+			</ul>
+		</SectionContainer>
+	);
 }
