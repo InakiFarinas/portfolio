@@ -1,11 +1,11 @@
 # Portfolio Iñaki.dev
 
-Este es mi **portfolio personal** desarrollado con [Next.js](https://nextjs.org) y estilizado con [Tailwind CSS](https://tailwindcss.com).  
+Este es mi **portfolio personal** desarrollado con [React](https://react.dev) + [Vite](https://vite.dev) y estilizado con [Tailwind CSS](https://tailwindcss.com).  
 Aquí muestro mis proyectos, habilidades y formas de contacto.
 
 ## Tecnologías utilizadas
 
-- [Next.js](https://nextjs.org) – framework de React para aplicaciones modernas.
+- [Vite](https://vite.dev) – tooling rápido para desarrollo y build.
 - [React](https://reactjs.org) – librería de componentes.
 - [Tailwind CSS](https://tailwindcss.com) – para estilos utilitarios y responsivos.
 - [React Icons](https://react-icons.github.io/react-icons/) – para los íconos de tecnologías y redes.
@@ -31,18 +31,27 @@ yarn dev
 # o
 pnpm dev
 
-Abre http://localhost:3000
+Abre http://localhost:5173
  en tu navegador.
-Edita las páginas en app/page.tsx o los componentes en src/components/ para ver los cambios en tiempo real.
+Edita `src/App.tsx` o los componentes en `src/components/` para ver los cambios en tiempo real.
+
+# Generar build de producción
+npm run build
+
+# Previsualizar el build
+npm run preview
+```
 
 Estructura del proyecto:
-├─ src/app/              # Páginas y rutas principales
+├─ src/                  # Código fuente principal
 ├─ src/components/   # Componentes reutilizables (Hero, Techs, Projects, Contact)
 ├─ src/hooks/        # Hooks y funciones de utilidad
 ├─ src/theme/        # Temas y estilos
-├─ src/components/UI/ # Componentes de interfaz de usuario
+├─ src/main.tsx      # Punto de entrada de React
+├─ src/App.tsx       # Layout principal del portfolio
 ├─ public/           # Imágenes y assets estáticos
-├─ styles/           # Estilos globales y variables
+├─ index.html        # HTML base de Vite
+├─ vite.config.ts    # Configuración de Vite
 ├─ package.json
 └─ README.md
 

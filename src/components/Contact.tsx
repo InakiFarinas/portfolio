@@ -1,5 +1,4 @@
 'use client';
-import Link from 'next/link';
 import { useForm, ValidationError } from '@formspree/react';
 import { useRef, useState, useEffect } from 'react';
 import { FaRegCopy } from 'react-icons/fa';
@@ -84,9 +83,9 @@ export default function Contact() {
         <div className="text-gray-900 dark:text-gray-100 space-y-2">
           <p>
             📧{' '}
-            <Link href="mailto:inakifarinas04@gmail.com" className="underline text-blue-500 hover:text-cyan-500 transition">
+            <a href="mailto:inakifarinas04@gmail.com" className="underline text-blue-500 hover:text-cyan-500 transition">
               inakifarinas04@gmail.com
-            </Link>
+            </a>
             <button type="button" onClick={handleCopyEmail} aria-label="Copiar email al portapapeles" aria-live="polite" title="Copiar email al portapapeles" className="ml-2 p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700 transition">
               <FaRegCopy className="inline text-lg" />
             </button>

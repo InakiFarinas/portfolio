@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { FaGithub, FaLinkedin, FaWhatsapp } from 'react-icons/fa';
 import SectionContainer from './SectionContainer';
 
@@ -7,7 +6,7 @@ export default function Hero() {
     <SectionContainer id="about" ariaLabel="Presentación personal" className="flex-col sm:flex-row py-16" animate>
       {/* Avatar */}
       <div className="flex-shrink-0 mr-5">
-        <Image src="/avatar.jpg" alt="Foto de Iñaki M. Fariñas, desarrollador Web Fullstack" width={250} height={250} className="rounded-full border-2 border-cyan-500" />
+        <img src="/avatar.jpg" alt="Foto de Iñaki M. Fariñas, desarrollador Web Fullstack" width={250} height={250} className="rounded-full border-2 border-cyan-500" />
       </div>
 
       {/* Texto principal */}
