@@ -2,7 +2,7 @@ import ProjectCard from './ProjectCard';
 import SectionContainer from './SectionContainer';
 
 const proyectos = [
-  { id: 1, nombre: 'World Dashboard', descripcion: 'Dashboard con datos globales', url: 'https://world-dashboard-smoky.vercel.app', imagen: '/globe.svg' },
+  { id: 1, nombre: 'World Dashboard', descripcion: 'Dashboard con datos globales', url: 'https://world-dashboard-smoky.vercel.app', imagen: '/WorldDashboard.png' },
 ];
 
 export default function Projects() {
