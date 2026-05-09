@@ -28,7 +28,7 @@ export default function Hero() {
 						<span className="text-blue-600 dark:text-blue-400">Iñaki</span>
 					</h1>
 					<p className="text-lg sm:text-xl text-gray-700 dark:text-gray-300">
-						Desarrollador Web Fullstack
+						Desarrollador Frontend Junior
 					</p>
 				</div>
 
@@ -70,7 +70,7 @@ export default function Hero() {
 							<FaGithub />
 						</a>
 						<a
-							href="https://linkedin.com/in/fariñas-iñaki-manuel-0b88232b6"
+							href="https://linkedin.com/in/inaki-farinas"
 							target="_blank"
 							rel="noopener noreferrer"
 							aria-label="LinkedIn"

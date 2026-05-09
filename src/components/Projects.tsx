@@ -5,7 +5,8 @@ const proyectos = [
 	{
 		id: 1,
 		nombre: "World Dashboard",
-		descripcion: "Dashboard con datos globales",
+		descripcion:
+			"Dashboard interactivo de estadísticas globales. React, Vite, Tailwind CSS, Recharts, React Query.",
 		url: "https://world-dashboard-smoky.vercel.app",
 		imagen: "/WorldDashboard.png",
 	},
