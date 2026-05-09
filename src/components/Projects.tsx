@@ -2,8 +2,7 @@ import ProjectCard from './ProjectCard';
 import SectionContainer from './SectionContainer';
 
 const proyectos = [
-  { id: 1, nombre: 'Task Manager', descripcion: 'Sistema de gestión de tareas', url: '#', imagen: '/inmobiliaria.jpg' },
-  { id: 2, nombre: 'Inmobiliaria', descripcion: 'Web de venta y alquiler de inmuebles', url: '#', imagen: '/inmobiliaria.jpg' },
+  { id: 1, nombre: 'World Dashboard', descripcion: 'Dashboard con datos globales', url: 'https://world-dashboard-smoky.vercel.app', imagen: '/globe.svg' },
 ];
 
 export default function Projects() {

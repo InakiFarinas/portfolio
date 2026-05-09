@@ -91,7 +91,7 @@ export default function Contact() {
             </button>
             {copied && <span className="ml-2 text-green-600 dark:text-green-400 text-sm font-semibold">¡Copiado!</span>}
           </p>
-          <p>📞 +54 11 1234-5678</p>
+          <p>📞 +54 9 11 3595-9887</p>
           <p>🏢 Conurbano Bonaerense, Argentina</p>
         </div>
 
