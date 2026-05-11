@@ -4,11 +4,19 @@ import SectionContainer from "./SectionContainer";
 const proyectos = [
 	{
 		id: 1,
-		nombre: "World Dashboard",
+		nombre: "Poblaciones Mundiales",
 		descripcion:
 			"Dashboard interactivo de estadísticas globales. React, Vite, Tailwind CSS, Recharts, React Query.",
 		url: "https://world-dashboard-smoky.vercel.app",
 		imagen: "/WorldDashboard.png",
+	},
+	{
+		id: 2,
+		nombre: "Inmobiliaria Zanola",
+		descripcion:
+			"Sitio web para inmobiliaria con catálogo de propiedades. React, Vite, Tailwind CSS, React Router.",
+		url: "https://inmobiliaria-zanola.vercel.app",
+		imagen: "/InmobiliariaZanola.png",
 	},
 ];
 
