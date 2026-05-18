@@ -87,6 +87,17 @@ body {
 	@apply font-mono;
 }
 
+/* Responsive base font-size for slightly larger text on desktop */
+html {
+	font-size: 14px;
+}
+
+@media (min-width: 768px) {
+	html {
+		font-size: 15px;
+	}
+}
+
 ::-webkit-scrollbar {
 	width: 8px;
 }

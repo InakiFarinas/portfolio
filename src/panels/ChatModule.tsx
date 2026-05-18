@@ -112,8 +112,8 @@ export function ChatModule() {
 						Chat Interactivo — Pregúntame algo
 					</span>
 				</div>
-				{/* Quick replies */}
-				<div className="flex gap-1.5 flex-wrap justify-end">
+				{/* Quick replies (hidden on very small screens) */}
+				<div className="hidden sm:flex gap-1.5 flex-wrap justify-end">
 					{QUICK_REPLIES.map((q) => (
 						<button
 							key={q}

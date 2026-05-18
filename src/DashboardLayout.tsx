@@ -169,14 +169,19 @@ function MainContent({ tab }: { tab: Tab }) {
 // ——— Root layout ———
 export function DashboardLayout() {
 	const [tab, setTab] = useState<Tab>("preview");
+	const [isSidebarOpen, setSidebarOpen] = useState(false);
 
 	return (
 		<div className="flex flex-col h-screen bg-[#0a0c10] text-[#e2e8f0] overflow-hidden">
-			<TopBar activeTab={tab} onTabChange={setTab} />
+			<TopBar
+				activeTab={tab}
+				onTabChange={setTab}
+				onToggleSidebar={() => setSidebarOpen((s) => !s)}
+			/>
 
 			<div className="flex flex-1 overflow-hidden">
-				{/* Sidebar */}
-				<aside className="w-[220px] shrink-0 border-r border-[#1e2535] overflow-y-auto animate-slideUp animate-delay-100">
+				{/* Sidebar (hidden on small screens) */}
+				<aside className="hidden md:block w-[220px] shrink-0 border-r border-[#1e2535] overflow-y-auto animate-slideUp animate-delay-100">
 					<OperatorPanel avatarSrc="/avatar.jpg" />
 				</aside>
 
@@ -189,6 +194,28 @@ export function DashboardLayout() {
 			</div>
 
 			<StatusBar />
+
+			{/* Mobile sidebar overlay */}
+			{isSidebarOpen && (
+				<div className="fixed inset-0 z-50 md:hidden">
+					<div
+						className="absolute inset-0 bg-black/50"
+						onClick={() => setSidebarOpen(false)}
+					/>
+					<aside className="relative w-64 h-full bg-[#0a0c10] border-r border-[#1e2535] overflow-y-auto">
+						<div className="p-3 flex justify-end">
+							<button
+								className="p-2 rounded hover:bg-[#161b27]"
+								onClick={() => setSidebarOpen(false)}
+								aria-label="Cerrar menú"
+							>
+								<i className="ti ti-x text-[#8a9bbb]" />
+							</button>
+						</div>
+						<OperatorPanel avatarSrc="/avatar.jpg" />
+					</aside>
+				</div>
+			)}
 		</div>
 	);
 }

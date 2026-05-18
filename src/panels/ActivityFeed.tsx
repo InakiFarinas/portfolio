@@ -39,7 +39,7 @@ export function ActivityFeed() {
 								style={{ color }}
 							/>
 							<div className="flex-1 min-w-0">
-								<p className="text-[11px] text-[#a8c5e8] font-mono leading-snug truncate group-hover:text-[#a0aec0] transition-colors">
+								<p className="text-[11px] text-[#a8c5e8] font-mono leading-snug md:truncate group-hover:text-[#a0aec0] transition-colors">
 									{item.text}
 								</p>
 								<p className="text-[9px] text-[#6b7b9d] mt-0.5 font-mono">

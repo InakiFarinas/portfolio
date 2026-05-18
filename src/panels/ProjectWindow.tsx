@@ -121,43 +121,64 @@ export function ProjectWindow({ project }: ProjectWindowProps) {
 				)}
 			</div>
 
-			{/* Preview */}
-			<div className="relative h-70 overflow-hidden bg-[#0d1017]">
-				<iframe
-					src={project.demoUrl}
-					className="absolute inset-0 w-full h-full border-0 pointer-events-none"
-					style={{
-						display: "block",
-						transform: "scale(0.5)",
-						transformOrigin: "top left",
-						width: "200%",
-						height: "200%",
-					}}
-					loading="lazy"
-					title={project.title}
-				/>
-				{/* Overlay para que no sea clickeable y mantenga el estilo */}
-				<div
-					className="absolute inset-0"
-					style={{
-						background: "linear-gradient(to top, #0d1017 0%, transparent 40%)",
-					}}
-				/>
-				{/* Stack chips */}
-				<div className="absolute bottom-2 left-3 flex gap-1 flex-wrap">
-					{project.stack.slice(0, 3).map((tech) => (
-						<span
-							key={tech}
-							className="text-[9px] px-1.5 py-0.5 rounded font-mono"
-							style={{
-								background: "rgba(0,0,0,0.5)",
-								color: project.color,
-								border: `0.5px solid ${project.color}44`,
-							}}
+			{/* Preview: hide live iframe on small screens for performance */}
+			<div className="bg-[#0d1017] overflow-hidden">
+				<div className="hidden md:block relative h-72">
+					<iframe
+						src={project.demoUrl}
+						className="absolute inset-0 w-full h-full border-0 pointer-events-none"
+						style={{
+							display: "block",
+							transform: "scale(0.5)",
+							transformOrigin: "top left",
+							width: "200%",
+							height: "200%",
+						}}
+						loading="lazy"
+						title={project.title}
+					/>
+					<div
+						className="absolute inset-0"
+						style={{
+							background:
+								"linear-gradient(to top, #0d1017 0%, transparent 40%)",
+						}}
+					/>
+					<div className="absolute bottom-2 left-3 flex gap-1 flex-wrap">
+						{project.stack.slice(0, 3).map((tech) => (
+							<span
+								key={tech}
+								className="text-[9px] px-1.5 py-0.5 rounded font-mono"
+								style={{
+									background: "rgba(0,0,0,0.5)",
+									color: project.color,
+									border: `0.5px solid ${project.color}44`,
+								}}
+							>
+								{tech}
+							</span>
+						))}
+					</div>
+				</div>
+
+				{/* Mobile preview: static image or colored placeholder */}
+				<div className="md:hidden h-40 flex items-center justify-center bg-gradient-to-br from-[#0d1017] to-[#07090b]">
+					{project.screenshotUrl ? (
+						<img
+							src={project.screenshotUrl}
+							alt={project.title}
+							className="w-full h-full object-cover"
+						/>
+					) : (
+						<div
+							className="w-full h-full flex items-center justify-center"
+							style={{ background: project.colorDark || "#111827" }}
 						>
-							{tech}
-						</span>
-					))}
+							<span className="text-sm font-mono text-[#e2e8f0]">
+								{project.title}
+							</span>
+						</div>
+					)}
 				</div>
 			</div>
 
@@ -172,7 +193,7 @@ export function ProjectWindow({ project }: ProjectWindowProps) {
 			</div>
 
 			{/* Metrics */}
-			<div className="px-4 py-3 grid grid-cols-3 gap-4">
+			<div className="px-4 py-3 grid grid-cols-1 sm:grid-cols-3 gap-4">
 				<MetricBar
 					label="commits"
 					value={commitPct}
@@ -194,7 +215,7 @@ export function ProjectWindow({ project }: ProjectWindowProps) {
 			</div>
 
 			{/* Footer links */}
-			<div className="flex items-center gap-4 px-4 py-2 border-t border-[#1e2535]">
+			<div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4 px-4 py-2 border-t border-[#1e2535]">
 				<a
 					href={project.repoUrl}
 					target="_blank"

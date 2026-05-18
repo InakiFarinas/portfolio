@@ -5,6 +5,7 @@ type Tab = "preview" | "fullview";
 interface TopBarProps {
 	activeTab: Tab;
 	onTabChange: (tab: Tab) => void;
+	onToggleSidebar?: () => void;
 }
 
 const TABS: { id: Tab; label: string }[] = [
@@ -73,7 +74,11 @@ function BlinkingCursor() {
 	);
 }
 
-export function TopBar({ activeTab, onTabChange }: TopBarProps) {
+export function TopBar({
+	activeTab,
+	onTabChange,
+	onToggleSidebar,
+}: TopBarProps) {
 	const [tickerIdx, setTickerIdx] = useState(0);
 	const { displayed: logoText, triggerGlitch } = useGlitch("iñaki.dev");
 
@@ -86,25 +91,39 @@ export function TopBar({ activeTab, onTabChange }: TopBarProps) {
 
 	return (
 		<header className="flex items-center justify-between px-4 py-2.5 bg-[#0d1017] border-b border-[#1e2535] shrink-0">
-			{/* Logo con glitch en hover */}
-			<div
-				className="flex items-center gap-2 cursor-default select-none"
-				onMouseEnter={triggerGlitch}
-			>
-				<span
-					className="w-2 h-2 rounded-full bg-[#7F77DD] animate-pulse"
-					style={{ animationDuration: "1.8s" }}
-				/>
-				<span className="text-sm font-mono font-medium text-[#7F77DD] tracking-tight">
-					{logoText}
-				</span>
-				<span className="text-[#1e2535] font-mono">—</span>
-				<span className="text-[11px] font-mono text-[#8a9bbb]">Workspace</span>
-				<BlinkingCursor />
+			<div className="flex items-center">
+				{onToggleSidebar && (
+					<button
+						className="md:hidden p-2 mr-2 rounded hover:bg-[#161b27]"
+						onClick={onToggleSidebar}
+						aria-label="Abrir menú"
+					>
+						<i className="ti ti-list text-lg text-[#8a9bbb]" />
+					</button>
+				)}
+
+				{/* Logo con glitch en hover */}
+				<div
+					className="flex items-center gap-2 cursor-default select-none"
+					onMouseEnter={triggerGlitch}
+				>
+					<span
+						className="w-2 h-2 rounded-full bg-[#7F77DD] animate-pulse"
+						style={{ animationDuration: "1.8s" }}
+					/>
+					<span className="text-sm font-mono font-medium text-[#7F77DD] tracking-tight">
+						{logoText}
+					</span>
+					<span className="text-[#1e2535] font-mono">—</span>
+					<span className="text-[11px] font-mono text-[#8a9bbb]">
+						Workspace
+					</span>
+					<BlinkingCursor />
+				</div>
 			</div>
 
 			{/* Tabs */}
-			<nav className="flex gap-1.5">
+			<nav className="hidden sm:flex gap-1.5">
 				{TABS.map(({ id, label }) => (
 					<button
 						key={id}
