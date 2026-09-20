@@ -1,215 +1,234 @@
 import { useEffect, useRef, useState, useCallback } from "react";
-import { getChatResponse } from "../data/portfolioData";
+import { getChatResponse } from "../i18n/dictionary";
+import { useI18n } from "../i18n/context";
+import { PROFILE } from "../data/portfolioData";
 
 interface Message {
 	id: string;
 	from: "bot" | "user";
 	text: string;
-	time: string;
+	ts: number;
+	/** Solo bot: 'greeting' o 'reply' (text guarda la pregunta y la respuesta se calcula al render). */
+	kind?: "greeting" | "reply";
+	/** Clave de la respuesta rápida usada, para que la pregunta también siga el idioma. */
+	qk?: string;
 }
 
-const INITIAL_TEXT =
-	"¡Hola! Soy Iñaki Bot. Estoy online. ¿En qué puedo ayudarte hoy?";
+const QUICK_KEYS = ["chat.q1", "chat.q2", "chat.q3", "chat.q4"];
 
-const QUICK_REPLIES = [
-	"¿Con qué tecnologías trabajás?",
-	"¿Cuál es tu experiencia?",
-	"¿Estás disponible?",
-	"¿Cómo te contacto?",
-];
-
-function now() {
-	return new Date().toLocaleTimeString("es-AR", {
+function fmt(ts: number, locale: string) {
+	return new Date(ts).toLocaleTimeString(locale, {
 		hour: "2-digit",
 		minute: "2-digit",
 	});
 }
 
-function useTypingEffect(text: string, speed = 30) {
-	const [displayed, setDisplayed] = useState("");
+const LINK_RE =
+	/([\w.+-]+@[\w-]+(?:\.[\w-]+)+|github\.com\/[\w-]+|\+54 9 11 3595-9887)/g;
 
-	useEffect(() => {
-		// Reset displayed text asynchronously to avoid synchronous setState in effect
-		const resetTimer = setTimeout(() => setDisplayed(""), 0);
-		let i = 0;
-		const interval = setInterval(() => {
-			setDisplayed(text.slice(0, i + 1));
-			i++;
-			if (i >= text.length) clearInterval(interval);
-		}, speed);
-		return () => {
-			clearInterval(interval);
-			clearTimeout(resetTimer);
-		};
-	}, [text, speed]);
-
-	return displayed;
+function hrefFor(token: string) {
+	if (token.includes("@")) return `mailto:${token}`;
+	if (token.startsWith("github.com")) return `https://${token}`;
+	return PROFILE.whatsapp;
 }
 
-// Initial messages are created lazily inside the component to avoid
-// impure calls during module initialization.
+/** Convierte email, WhatsApp y GitHub de las respuestas del bot en links. */
+function linkify(text: string) {
+	return text.split(LINK_RE).map((part, i) =>
+		i % 2 === 1 ? (
+			<a
+				key={i}
+				href={hrefFor(part)}
+				target="_blank"
+				rel="noopener noreferrer"
+				className="font-medium text-ink underline underline-offset-2 hover:text-accent-soft"
+			>
+				{part}
+			</a>
+		) : (
+			part
+		),
+	);
+}
 
 export function ChatModule() {
-	const [messages, setMessages] = useState<Message[]>(() => [
-		{
-			id: "0",
-			from: "bot",
-			text: INITIAL_TEXT,
-			time: now(),
-		},
-	]);
+	const { t, lang } = useI18n();
+	const locale = lang === "es" ? "es-AR" : "en-US";
+	const [messages, setMessages] = useState<Message[]>([]);
+	const [greetingTs] = useState(() => Date.now());
 	const [input, setInput] = useState("");
 	const [typing, setTyping] = useState(false);
-	// `currentBotMsgId` se deriva de los mensajes para evitar setState en efectos
-	const currentBotMsgId = (() => {
-		const lastBot = [...messages].reverse().find((m) => m.from === "bot");
-		return lastBot?.id ?? "0";
-	})();
 	const bottomRef = useRef<HTMLDivElement>(null);
+	const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-	// Obtener el texto del mensaje actual siendo escrito
-	const currentBotMsg = messages.find((m) => m.id === currentBotMsgId);
-	const currentBotText = currentBotMsg?.text || "";
-	const typedText = useTypingEffect(currentBotText);
+	// El saludo inicial siempre sigue el idioma activo mientras no haya conversación.
+	const shown: Message[] =
+		messages.length === 0
+			? [{ id: "0", from: "bot", text: "", ts: greetingTs, kind: "greeting" }]
+			: messages;
 
 	useEffect(() => {
-		bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+		bottomRef.current?.scrollIntoView({
+			behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+				? "auto"
+				: "smooth",
+		});
 	}, [messages, typing]);
 
-	const sendMessage = useCallback((text: string) => {
-		if (!text.trim()) return;
-		const userMsg: Message = {
-			id: Date.now().toString(),
-			from: "user",
-			text: text.trim(),
-			time: now(),
-		};
-		setMessages((prev) => [...prev, userMsg]);
-		setInput("");
-		setTyping(true);
+	useEffect(() => () => clearTimeout(timerRef.current!), []);
 
-		setTimeout(
-			() => {
-				const botMsg: Message = {
-					id: (Date.now() + 1).toString(),
-					from: "bot",
-					text: getChatResponse(text),
-					time: now(),
-				};
-				setMessages((prev) => [...prev, botMsg]);
-				setTyping(false);
-			},
-			800 + Math.random() * 400,
-		);
-	}, []);
+	const sendMessage = useCallback(
+		(text: string, qk?: string) => {
+			if (!text.trim()) return;
+			const userMsg: Message = {
+				id: `u${Date.now()}`,
+				from: "user",
+				text: text.trim(),
+				ts: Date.now(),
+				qk,
+			};
+			setMessages((prev) => [
+				...(prev.length === 0
+					? [{ id: "0", from: "bot" as const, text: "", ts: greetingTs, kind: "greeting" as const }]
+					: prev),
+				userMsg,
+			]);
+			setInput("");
+			setTyping(true);
+
+			timerRef.current = setTimeout(
+				() => {
+					setMessages((prev) => [
+						...prev,
+						{
+							id: `b${Date.now()}`,
+							from: "bot",
+							text,
+							ts: Date.now(),
+							kind: "reply",
+							qk,
+						},
+					]);
+					setTyping(false);
+				},
+				700 + Math.random() * 300,
+			);
+		},
+		[greetingTs],
+	);
 
 	return (
-		<div className="flex flex-col h-full min-h-0">
-			{/* Header */}
-			<div className="flex items-center justify-between px-4 py-2.5 border-b border-[#1e2535] bg-[#0a0c10] shrink-0">
-				<div className="flex items-center gap-2">
-					<span className="text-[10px] tracking-widest text-[#8a9bbb] uppercase font-mono">
-						Chat Interactivo — Pregúntame algo
-					</span>
-				</div>
-				{/* Quick replies (hidden on very small screens) */}
-				<div className="hidden sm:flex gap-1.5 flex-wrap justify-end">
-					{QUICK_REPLIES.map((q) => (
+		<section aria-labelledby="chat-title" className="flex flex-col h-full min-h-0">
+			<div className="flex flex-wrap items-center justify-between gap-2 px-4 py-2.5 border-b border-line bg-canvas shrink-0">
+				<h3
+					id="chat-title"
+					className="text-[15px] font-medium text-soft"
+				>
+					{t("chat.title")}
+				</h3>
+				<div className="flex gap-1.5 flex-wrap justify-end">
+					{QUICK_KEYS.map((k) => (
 						<button
-							key={q}
-							onClick={() => sendMessage(q)}
-							className="text-[9px] px-2 py-1 rounded border border-[#1e2535] bg-[#0d1017] text-[#a8c5e8] hover:border-[#7F77DD] hover:text-[#7F77DD] transition-colors font-mono whitespace-nowrap"
+							key={k}
+							onClick={() => sendMessage(t(k), k)}
+							className="text-[13px] px-2.5 py-1.5 min-h-[44px] rounded border border-line bg-surface text-soft hover:border-accent-strong hover:text-accent transition-colors"
 						>
-							{q}
+							{t(k)}
 						</button>
 					))}
 				</div>
 			</div>
 
-			{/* Messages */}
-			<div className="flex-1 overflow-y-auto px-4 py-3 flex flex-col gap-3 min-h-0">
-				{messages.map((msg) => (
+			<div
+				role="log"
+				aria-live="polite"
+				aria-label={t("chat.log")}
+				className="flex-1 overflow-y-auto px-4 py-3 flex flex-col gap-3 min-h-0"
+			>
+				{shown.map((msg) => (
 					<div
 						key={msg.id}
 						className={`flex gap-2 items-start ${msg.from === "user" ? "flex-row-reverse" : ""}`}
 					>
-						{/* Avatar */}
 						<div
-							className={`w-6 h-6 rounded-full flex items-center justify-center text-[9px] font-mono font-medium shrink-0 mt-0.5 border ${
+							aria-hidden="true"
+							className={`w-7 h-7 rounded-full flex items-center justify-center text-[13px] font-medium shrink-0 mt-0.5 border ${
 								msg.from === "bot"
-									? "bg-[#1e1645] text-[#a78bfa] border-[#3d3272]"
-									: "bg-[#161b27] text-[#a8c5e8] border-[#1e2535]"
+									? "bg-accent-wash text-accent border-accent-line"
+									: "bg-raised text-soft border-line"
 							}`}
 						>
-							{msg.from === "bot" ? "IF" : "V"}
+							{msg.from === "bot" ? (
+									"IF"
+								) : (
+									<i className="ti ti-user" />
+								)}
 						</div>
-						{/* Bubble */}
-						<div
-							className={msg.from === "user" ? "items-end flex flex-col" : ""}
-						>
+						<div className={msg.from === "user" ? "items-end flex flex-col" : ""}>
 							<div
-								className={`px-3 py-2 rounded-lg text-[12px] font-mono leading-relaxed max-w-xs lg:max-w-sm border ${
+								className={`px-3 py-2 rounded-lg text-[16px] leading-relaxed max-w-xs lg:max-w-md border ${
 									msg.from === "bot"
-										? "bg-[#1e1645] text-[#c4b5fd] border-[#3d3272]"
-										: "bg-[#161b27] text-[#a0aec0] border-[#1e2535]"
+										? "bg-accent-wash text-accent-soft border-accent-line"
+										: "bg-raised text-body border-line"
 								}`}
 							>
-								{msg.from === "bot" && msg.id === currentBotMsgId
-									? typedText
-									: msg.text}
-								{msg.from === "bot" &&
-									msg.id === currentBotMsgId &&
-									typedText.length < currentBotText.length && (
-										<span className="animate-pulse">▋</span>
-									)}
+								{msg.from === "bot"
+									? linkify(
+											msg.kind === "greeting"
+												? t("chat.initial")
+												: getChatResponse(msg.qk ? t(msg.qk) : msg.text, lang),
+										)
+									: msg.qk
+										? t(msg.qk)
+										: msg.text}
 							</div>
 							<p
-								className={`text-[9px] text-[#6b7b9d] mt-0.5 font-mono ${
+								className={`text-[13px] text-muted mt-0.5 ${
 									msg.from === "user" ? "text-right" : ""
 								}`}
 							>
-								{msg.time}
+								{fmt(msg.ts, locale)}
 							</p>
 						</div>
 					</div>
 				))}
 
-				{/* Typing indicator */}
 				{typing && (
-					<div className="flex gap-2 items-center">
-						<div className="w-6 h-6 rounded-full bg-[#1e1645] border border-[#3d3272] flex items-center justify-center text-[9px] font-mono text-[#a78bfa]">
+					<div className="flex gap-2 items-center" aria-hidden="true">
+						<div className="w-7 h-7 rounded-full bg-accent-wash border border-accent-line flex items-center justify-center text-[13px] text-accent">
 							IF
 						</div>
-						<div className="px-3 py-2 rounded-lg bg-[#1e1645] border border-[#3d3272] flex gap-1 items-center">
-							<span className="w-1.5 h-1.5 rounded-full bg-[#a78bfa] animate-bounce [animation-delay:0ms]" />
-							<span className="w-1.5 h-1.5 rounded-full bg-[#a78bfa] animate-bounce [animation-delay:150ms]" />
-							<span className="w-1.5 h-1.5 rounded-full bg-[#a78bfa] animate-bounce [animation-delay:300ms]" />
+						<div className="px-3 py-2.5 rounded-lg bg-accent-wash border border-accent-line flex gap-1 items-center">
+							<span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse [animation-delay:0ms]" />
+							<span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse [animation-delay:200ms]" />
+							<span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse [animation-delay:400ms]" />
 						</div>
 					</div>
 				)}
 				<div ref={bottomRef} />
 			</div>
 
-			{/* Input */}
-			<div className="flex gap-2 px-4 py-3 border-t border-[#1e2535] bg-[#0a0c10] shrink-0">
+			<form
+				className="flex gap-2 px-4 py-3 border-t border-line bg-canvas shrink-0"
+				onSubmit={(e) => {
+					e.preventDefault();
+					sendMessage(input);
+				}}
+			>
 				<input
 					value={input}
 					onChange={(e) => setInput(e.target.value)}
-					onKeyDown={(e) => e.key === "Enter" && sendMessage(input)}
-					placeholder="escribí tu pregunta..."
-					className="flex-1 bg-[#161b27] border border-[#1e2535] rounded px-3 py-2 text-[11px] font-mono text-[#a0aec0] placeholder-[#2d3748] outline-none focus:border-[#7F77DD] transition-colors"
+					aria-label={t("chat.inputLabel")}
+					placeholder={t("chat.placeholder")}
+					className="flex-1 min-w-0 min-h-[44px] bg-raised border border-line rounded px-3 py-2 text-[16px] text-body placeholder-muted focus:border-accent-strong transition-colors"
 				/>
 				<button
-					onClick={() => sendMessage(input)}
-					className="px-4 py-2 rounded text-[11px] font-mono font-medium transition-colors"
-					style={{
-						background: "linear-gradient(135deg, #7F77DD, #D4537E)",
-						color: "#fff",
-					}}
+					type="submit"
+					className="px-4 py-2 min-h-[44px] rounded text-[15px] font-medium bg-accent text-canvas hover:bg-accent-soft transition-colors"
 				>
-					enviar
+					{t("chat.send")}
 				</button>
-			</div>
-		</div>
+			</form>
+		</section>
 	);
 }

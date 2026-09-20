@@ -1,221 +1,255 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { TopBar } from "./layout/TopBar";
 import { OperatorPanel } from "./panels/OperatorPanel";
 import { ProjectWindow } from "./panels/ProjectWindow";
 import { ChatModule } from "./panels/ChatModule";
 import { StackView } from "./panels/StackView";
-import { PROJECTS } from "./data/portfolioData";
+import { PROJECTS, PROFILE } from "./data/portfolioData";
+import { useI18n } from "./i18n/context";
 
-type Tab = "preview" | "fullview";
-
-// ——— Status bar bottom ———
-function StatusBar() {
+function SectionHeading({ title, count }: { title: string; count?: string }) {
 	return (
-		<footer className="flex items-center justify-between px-4 py-1.5 bg-[#0a0c10] border-t border-[#1e2535] shrink-0">
-			<div className="flex items-center gap-4">
-				<span className="flex items-center gap-1.5 text-[10px] font-mono text-[#4ade80]">
-					<i className="ti ti-wifi text-[11px]" />
-					conectado
-				</span>
-				<span className="flex items-center gap-1.5 text-[10px] font-mono text-[#8a9bbb]">
-					<i className="ti ti-git-branch text-[11px]" />
-					main
-				</span>
-				<span className="flex items-center gap-1.5 text-[10px] font-mono text-[#8a9bbb]">
-					<i className="ti ti-brand-vercel text-[11px]" />
-					deployed
-				</span>
-			</div>
-			<span className="text-[10px] font-mono text-[#6b7b9d]">
-				iñaki.dev · {new Date().getFullYear()}
+		<div className="flex items-baseline gap-3 mb-4">
+			<h2 className="text-[22px] font-bold tracking-tight text-ink">{title}</h2>
+			<div className="flex-1 h-px bg-line self-center" />
+			{count && <span className="font-mono text-[13px] text-muted">{count}</span>}
+		</div>
+	);
+}
+
+function Footer() {
+	const { t } = useI18n();
+	return (
+		<footer className="flex items-center justify-between gap-3 px-4 py-2 bg-canvas border-t border-line shrink-0 font-mono text-[13px] text-muted">
+			<span>{t("footer.location")}</span>
+			<span>
+				<span className="hidden sm:inline">{PROFILE.name} · </span>
+				{new Date().getFullYear()}
 			</span>
 		</footer>
 	);
 }
 
-// ——— Main content per tab ———
-function MainContent({ tab }: { tab: Tab }) {
-	const projects = PROJECTS;
+const CONTACTS = [
+	{ icon: "ti-mail", key: "contact.email", value: PROFILE.email, href: `mailto:${PROFILE.email}` },
+	{ icon: "ti-brand-whatsapp", key: "contact.whatsapp", value: PROFILE.whatsappLabel, href: PROFILE.whatsapp },
+	{ icon: "ti-brand-linkedin", key: "contact.linkedin", value: "linkedin.com/in/inaki-farinas", href: "https://www.linkedin.com/in/inaki-farinas/" },
+	{ icon: "ti-brand-github", key: "contact.github", value: `github.com/${PROFILE.github}`, href: `https://github.com/${PROFILE.github}` },
+];
 
-	if (tab === "fullview") {
-		return (
-			<div className="h-full overflow-y-auto p-4 flex flex-col gap-4">
-				{/* Projects Section */}
-				<div>
-					<div className="flex items-center gap-3 mb-3">
-						<span className="text-[10px] text-[#7F77DD] font-mono tracking-widest uppercase">
-							Todos los Proyectos
-						</span>
-						<div className="flex-1 h-px bg-[#1e2535]" />
-						<span className="text-[10px] text-[#8a9bbb] font-mono">
-							{PROJECTS.length} en pantalla
-						</span>
-					</div>
-					<div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
-						{PROJECTS.map((project) => (
-							<ProjectWindow key={project.id} project={project} />
-						))}
-					</div>
-				</div>
-				{/* Chat module */}
-				<div className="rounded-lg border border-[#1e2535] bg-[#0d1017] overflow-hidden flex flex-col min-h-[280px]">
-					<ChatModule />
-				</div>
-				{/* Stack Section */}
-				<div>
-					<div className="flex items-center gap-3 mb-3">
-						<span className="text-[10px] text-[#7F77DD] font-mono tracking-widest uppercase">
-							Stack & Skills
-						</span>
-						<div className="flex-1 h-px bg-[#1e2535]" />
-					</div>
-					<div className="rounded-lg border border-[#1e2535] bg-[#0d1017] overflow-hidden">
-						<StackView />
-					</div>
-				</div>
-				{/* Contact Section */}
-				<div>
-					<div className="flex items-center gap-3 mb-3">
-						<span className="text-[10px] text-[#7F77DD] font-mono tracking-widest uppercase">
-							Contacto Directo
-						</span>
-						<div className="flex-1 h-px bg-[#1e2535]" />
-					</div>
-					<div className="rounded-lg border border-[#1e2535] bg-[#0d1017] overflow-hidden p-4">
-						<div className="flex flex-col gap-3">
-							{[
-								{
-									icon: "ti-mail",
-									label: "Email",
-									value: "inakifarinas04@gmail.com",
-									href: "mailto:inakifarinas04@gmail.com",
-								},
-								{
-									icon: "ti-brand-whatsapp",
-									label: "WhatsApp",
-									value: "+54 9 11 3595-9887",
-									href: "https://wa.me/5491135959887",
-								},
-								{
-									icon: "ti-brand-linkedin",
-									label: "LinkedIn",
-									value: "linkedin.com/in/iñaki",
-									href: "https://linkedin.com",
-								},
-								{
-									icon: "ti-brand-github",
-									label: "GitHub",
-									value: "github.com/InakiFarinas",
-									href: "https://github.com/InakiFarinas",
-								},
-							].map(({ icon, label, value, href }) => (
-								<a
-									key={label}
-									href={href}
-									target="_blank"
-									rel="noopener noreferrer"
-									className="flex items-center gap-3 p-3 rounded-lg border border-[#1e2535] hover:border-[#7F77DD] hover:bg-[#161b27] transition-all group"
-								>
-									<div className="w-8 h-8 rounded-lg bg-[#1e1645] border border-[#3d3272] flex items-center justify-center">
-										<i className={`ti ${icon} text-sm text-[#7F77DD]`} />
-									</div>
-									<div>
-										<p className="text-[9px] text-[#8a9bbb] font-mono">
-											{label}
-										</p>
-										<p className="text-[11px] text-[#a0aec0] font-mono group-hover:text-[#a78bfa] transition-colors">
-											{value}
-										</p>
-									</div>
-									<i className="ti ti-arrow-up-right text-[#8a9bbb] text-[11px] ml-auto group-hover:text-[#7F77DD]" />
-								</a>
-							))}
-						</div>
-					</div>
-				</div>
+const DRAWER_NAV = [
+	{ href: "#proyectos", key: "nav.projects" },
+	{ href: "#stack", key: "nav.stack" },
+	{ href: "#contacto", key: "nav.contact" },
+];
+
+function Hero() {
+	const { t } = useI18n();
+	return (
+		<section className="pt-2 pb-4">
+			<p className="flex items-center gap-2 text-[15px] text-ok">
+				<span className="w-2 h-2 rounded-full bg-ok" aria-hidden="true" />
+				{t("profile.status")}
+			</p>
+			<h1 className="mt-3 max-w-[20ch] text-[clamp(2rem,5vw,3.25rem)] leading-[1.05] font-bold tracking-tight text-ink text-balance">
+				{t("hero.title")}
+			</h1>
+			<p className="mt-4 max-w-[60ch] text-[17px] leading-relaxed text-soft">
+				{t("hero.sub")}
+			</p>
+			<div className="mt-6 flex flex-wrap gap-3">
+				<a
+					href="#proyectos"
+					className="flex items-center gap-2 px-5 min-h-[48px] rounded bg-accent text-canvas text-[16px] font-medium hover:bg-accent-soft transition-colors"
+				>
+					{t("cta.projects")}
+					<i className="ti ti-arrow-down text-[16px]" aria-hidden="true" />
+				</a>
+				<a
+					href="/cv.pdf"
+					target="_blank"
+					rel="noopener noreferrer"
+					className="flex items-center gap-2 px-5 min-h-[48px] rounded border border-accent-line text-accent text-[16px] font-medium hover:bg-accent-wash transition-colors"
+				>
+					<i className="ti ti-file-cv text-[16px]" aria-hidden="true" />
+					{t("cta.cv")}
+				</a>
 			</div>
+		</section>
+	);
+}
+
+function MainContent() {
+	const { t } = useI18n();
+
+	return (
+		<div className="h-full overflow-y-auto scroll-smooth p-4 md:p-6 flex flex-col gap-10">
+			<Hero />
+
+			<section id="proyectos" className="scroll-mt-4">
+				<SectionHeading
+					title={t("section.projects")}
+					count={t("count.projects", { n: PROJECTS.length })}
+				/>
+				<div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
+					{PROJECTS.map((project) => (
+						<ProjectWindow key={project.id} project={project} />
+					))}
+				</div>
+			</section>
+
+			<div className="rounded-lg border border-line bg-surface overflow-hidden flex flex-col min-h-[480px] sm:min-h-[320px]">
+				<ChatModule />
+			</div>
+
+			<section id="stack" className="scroll-mt-4">
+				<SectionHeading title={t("section.stack")} />
+				<div className="rounded-lg border border-line bg-surface overflow-hidden">
+					<StackView />
+				</div>
+			</section>
+
+			<section id="contacto" tabIndex={-1} className="scroll-mt-4 outline-none">
+				<SectionHeading title={t("section.contact")} />
+				<div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+					{CONTACTS.map(({ icon, key, value, href }) => (
+						<a
+							key={key}
+							href={href}
+							target="_blank"
+							rel="noopener noreferrer"
+							className="flex items-center gap-3 p-3 rounded-lg border border-line bg-surface hover:border-accent-strong hover:bg-raised transition-colors group"
+						>
+							<div className="w-10 h-10 rounded-lg bg-accent-wash border border-accent-line flex items-center justify-center shrink-0">
+								<i className={`ti ${icon} text-lg text-accent`} aria-hidden="true" />
+							</div>
+							<div className="min-w-0">
+								<p className="text-[13px] text-muted">{t(key)}</p>
+								<p className="text-[16px] text-body truncate group-hover:text-accent transition-colors">
+									{value}
+								</p>
+							</div>
+							<i className="ti ti-arrow-up-right text-muted text-[16px] ml-auto group-hover:text-accent" aria-hidden="true" />
+						</a>
+					))}
+				</div>
+			</section>
+		</div>
+	);
+}
+
+function MobileDrawer({ onClose }: { onClose: () => void }) {
+	const { t } = useI18n();
+	const panelRef = useRef<HTMLDivElement>(null);
+	const closeRef = useRef<HTMLButtonElement>(null);
+
+	useEffect(() => {
+		const previous = document.activeElement as HTMLElement | null;
+		closeRef.current?.focus();
+		return () => previous?.focus({ preventScroll: true });
+	}, []);
+
+	function onKeyDown(e: React.KeyboardEvent) {
+		if (e.key === "Escape") {
+			onClose();
+			return;
+		}
+		if (e.key !== "Tab" || !panelRef.current) return;
+		const focusable = panelRef.current.querySelectorAll<HTMLElement>(
+			'a[href], button:not([disabled]), input, [tabindex]:not([tabindex="-1"])',
 		);
+		if (focusable.length === 0) return;
+		const first = focusable[0];
+		const last = focusable[focusable.length - 1];
+		if (e.shiftKey && document.activeElement === first) {
+			e.preventDefault();
+			last.focus();
+		} else if (!e.shiftKey && document.activeElement === last) {
+			e.preventDefault();
+			first.focus();
+		}
 	}
 
-	// preview — show active projects + chat
 	return (
-		<div className="h-full overflow-y-auto p-4 flex flex-col gap-4">
-			{/* Section header */}
-			<div className="flex items-center gap-3">
-				<span className="text-[10px] text-[#7F77DD] font-mono tracking-widest uppercase">
-					Proyectos Activos
-				</span>
-				<div className="flex-1 h-px bg-[#1e2535]" />
-				<span className="text-[10px] text-[#8a9bbb] font-mono">
-					{projects.length} en pantalla
-				</span>
-			</div>
-
-			{/* Project windows grid */}
-			<div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
-				{projects.map((project) => (
-					<ProjectWindow key={project.id} project={project} />
-				))}
-			</div>
-
-			{/* Chat module */}
-			<div className="rounded-lg border border-[#1e2535] bg-[#0d1017] overflow-hidden flex flex-col min-h-[280px]">
-				<ChatModule />
+		<div className="fixed inset-0 z-50 md:hidden" onKeyDown={onKeyDown}>
+			<div className="absolute inset-0 bg-black/60" onClick={onClose} aria-hidden="true" />
+			<div
+				ref={panelRef}
+				role="dialog"
+				aria-modal="true"
+				aria-label={t("panel.title")}
+				className="relative w-72 max-w-[85vw] h-full bg-canvas border-r border-line overflow-y-auto"
+			>
+				<div className="p-2 flex justify-end">
+					<button
+						ref={closeRef}
+						className="p-2.5 rounded hover:bg-raised min-w-[44px] min-h-[44px]"
+						onClick={onClose}
+						aria-label={t("menu.close")}
+					>
+						<i className="ti ti-x text-lg text-muted" aria-hidden="true" />
+					</button>
+				</div>
+				<nav aria-label={t("nav.label")} className="px-3 pb-2 flex flex-col">
+					{DRAWER_NAV.map(({ href, key }) => (
+						<a
+							key={key}
+							href={href}
+							onClick={onClose}
+							className="px-3 min-h-[44px] flex items-center rounded text-[16px] text-ink hover:bg-raised"
+						>
+							{t(key)}
+						</a>
+					))}
+				</nav>
+				<div className="px-3 pb-2 flex gap-2">
+					{CONTACTS.slice(0, 2).map(({ icon, key, href }) => (
+						<a
+							key={key}
+							href={href}
+							target="_blank"
+							rel="noopener noreferrer"
+							className="flex-1 flex items-center justify-center gap-2 min-h-[44px] rounded border border-accent-line text-accent text-[15px]"
+						>
+							<i className={`ti ${icon} text-[16px]`} aria-hidden="true" />
+							{t(key)}
+						</a>
+					))}
+				</div>
+				<OperatorPanel avatarSrc="/avatar.jpg" />
 			</div>
 		</div>
 	);
 }
 
-// ——— Root layout ———
 export function DashboardLayout() {
-	const [tab, setTab] = useState<Tab>("preview");
+	const { t } = useI18n();
 	const [isSidebarOpen, setSidebarOpen] = useState(false);
 
 	return (
-		<div className="flex flex-col h-screen bg-[#0a0c10] text-[#e2e8f0] overflow-hidden">
-			<TopBar
-				activeTab={tab}
-				onTabChange={setTab}
-				onToggleSidebar={() => setSidebarOpen((s) => !s)}
-			/>
+		<div className="flex flex-col h-dvh bg-canvas text-ink overflow-hidden">
+			<a
+				href="#main"
+				className="sr-only focus:not-sr-only focus:absolute focus:z-[60] focus:m-2 focus:px-3 focus:py-2 focus:rounded focus:bg-accent focus:text-canvas text-[15px]"
+			>
+				{t("skip")}
+			</a>
+
+			<TopBar onToggleSidebar={() => setSidebarOpen(true)} />
 
 			<div className="flex flex-1 overflow-hidden">
-				{/* Sidebar (hidden on small screens) */}
-				<aside className="hidden md:block w-[220px] shrink-0 border-r border-[#1e2535] overflow-y-auto animate-slideUp animate-delay-100">
+				<aside className="hidden md:block w-[260px] shrink-0 border-r border-line overflow-y-auto">
 					<OperatorPanel avatarSrc="/avatar.jpg" />
 				</aside>
 
-				{/* Main area */}
-				<main className="flex-1 overflow-hidden animate-slideUp animate-delay-200">
-					<div key={tab} className="h-full">
-						<MainContent tab={tab} />
-					</div>
+				<main id="main" tabIndex={-1} className="flex-1 overflow-hidden outline-none">
+					<MainContent />
 				</main>
 			</div>
 
-			<StatusBar />
+			<Footer />
 
-			{/* Mobile sidebar overlay */}
-			{isSidebarOpen && (
-				<div className="fixed inset-0 z-50 md:hidden">
-					<div
-						className="absolute inset-0 bg-black/50"
-						onClick={() => setSidebarOpen(false)}
-					/>
-					<aside className="relative w-64 h-full bg-[#0a0c10] border-r border-[#1e2535] overflow-y-auto">
-						<div className="p-3 flex justify-end">
-							<button
-								className="p-2 rounded hover:bg-[#161b27]"
-								onClick={() => setSidebarOpen(false)}
-								aria-label="Cerrar menú"
-							>
-								<i className="ti ti-x text-[#8a9bbb]" />
-							</button>
-						</div>
-						<OperatorPanel avatarSrc="/avatar.jpg" />
-					</aside>
-				</div>
-			)}
+			{isSidebarOpen && <MobileDrawer onClose={() => setSidebarOpen(false)} />}
 		</div>
 	);
 }

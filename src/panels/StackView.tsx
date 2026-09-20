@@ -1,60 +1,50 @@
 import { useState } from "react";
-import { TECHS, Category } from "../data/portfolioData";
+import { TECHS, type Category } from "../data/portfolioData";
+import { useI18n } from "../i18n/context";
 
-const CATEGORIES: { id: Category; label: string }[] = [
-	{ id: "todas", label: "Todas" },
-	{ id: "frontend", label: "Frontend" },
-	{ id: "backend", label: "Backend" },
-	{ id: "tools", label: "Tools" },
-];
+const CATEGORIES: Category[] = ["todas", "frontend", "backend", "tools"];
 
 export function StackView() {
+	const { t } = useI18n();
 	const [active, setActive] = useState<Category>("todas");
 
 	const filtered =
-		active === "todas" ? TECHS : TECHS.filter((t) => t.category === active);
+		active === "todas" ? TECHS : TECHS.filter((tech) => tech.category === active);
 
 	return (
-		<div className="h-full overflow-y-auto p-4">
-			{/* Section header */}
+		<div className="p-4">
 			<div className="flex items-center gap-3 mb-4">
-				<span className="text-[10px] text-[#7F77DD] font-mono tracking-widest uppercase">
-					Stack Tecnológico
-				</span>
-				<div className="flex-1 h-px bg-[#1e2535]" />
-				<span className="text-[10px] text-[#8a9bbb] font-mono">
-					{filtered.length} tecnologías
+				<h3 className="text-[15px] font-medium text-soft">
+					{t("stack.title")}
+				</h3>
+				<div className="flex-1 h-px bg-line" />
+				<span className="text-[15px] text-muted">
+					{t("count.techs", { n: filtered.length })}
 				</span>
 			</div>
 
-			{/* Category filters */}
 			<div className="flex gap-2 mb-6 flex-wrap">
-				{CATEGORIES.map(({ id, label }) => (
+				{CATEGORIES.map((id) => (
 					<button
 						key={id}
 						onClick={() => setActive(id)}
-						className={`px-3 py-1.5 rounded-full text-[11px] font-mono border transition-all ${
+						aria-pressed={active === id}
+						className={`px-3 py-2 min-h-[44px] rounded-full text-[15px] border transition-colors ${
 							active === id
-								? "text-white border-transparent"
-								: "text-[#8a9bbb] border-[#1e2535] hover:text-[#a8c5e8] hover:border-[#6b7b9d]"
+								? "bg-accent text-canvas border-transparent"
+								: "text-muted border-line hover:text-soft hover:border-line-strong"
 						}`}
-						style={
-							active === id
-								? { background: "linear-gradient(135deg, #7F77DD, #D4537E)" }
-								: {}
-						}
 					>
-						{label}
+						{t(`cat.${id}`)}
 					</button>
 				))}
 			</div>
 
-			{/* Tech grid */}
 			<div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3">
 				{filtered.map((tech) => (
 					<div
 						key={tech.name}
-						className="group rounded-lg border border-[#1e2535] bg-[#0d1017] p-3 hover:border-[#3d3272] transition-all cursor-default"
+						className="rounded-lg border border-line bg-surface p-3"
 					>
 						<div className="flex items-center gap-2.5">
 							<div
@@ -64,14 +54,15 @@ export function StackView() {
 								<i
 									className={`ti ${tech.icon} text-base`}
 									style={{ color: tech.iconColor }}
+									aria-hidden="true"
 								/>
 							</div>
 							<div>
-								<p className="text-[12px] font-mono font-medium text-[#e2e8f0]">
+								<p className="text-[16px] font-medium text-ink">
 									{tech.name}
 								</p>
-								<p className="text-[9px] text-[#8a9bbb] font-mono capitalize">
-									{tech.category}
+								<p className="font-mono text-[13px] text-muted">
+									{t(`cat.${tech.category}`)}
 								</p>
 							</div>
 						</div>

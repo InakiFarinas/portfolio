@@ -70,51 +70,8 @@ function parseEvent(e: GitHubEvent): FeedItem | null {
 	return null;
 }
 
-const FALLBACK: FeedItem[] = [
-	{
-		id: "1",
-		type: "commit",
-		text: "feat: dark mode en dashboard",
-		repo: "portfolio",
-		time: "2h",
-		rawDate: new Date(),
-	},
-	{
-		id: "2",
-		type: "deploy",
-		text: "deploy → Vercel OK",
-		repo: "portfolio",
-		time: "18h",
-		rawDate: new Date(),
-	},
-	{
-		id: "3",
-		type: "branch",
-		text: "nueva branch: feat/charts",
-		repo: "world-stats",
-		time: "1d",
-		rawDate: new Date(),
-	},
-	{
-		id: "4",
-		type: "commit",
-		text: "fix: filtro de tecnologías",
-		repo: "world-stats",
-		time: "2d",
-		rawDate: new Date(),
-	},
-	{
-		id: "5",
-		type: "commit",
-		text: "style: hero gradients",
-		repo: "portfolio",
-		time: "3d",
-		rawDate: new Date(),
-	},
-];
-
 export function useGitHubActivity(username: string) {
-	const [items, setItems] = useState<FeedItem[]>(FALLBACK);
+	const [items, setItems] = useState<FeedItem[]>([]);
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
@@ -128,11 +85,11 @@ export function useGitHubActivity(username: string) {
 		)
 			.then((r) => r.json())
 			.then((events: GitHubEvent[]) => {
-				console.log("Primer evento:", JSON.stringify(events[0], null, 2));
+				if (!Array.isArray(events)) return;
 				const parsed = events
 					.map(parseEvent)
 					.filter(Boolean)
-					.slice(0, 8) as FeedItem[];
+					.slice(0, 30) as FeedItem[];
 				if (parsed.length > 0) setItems(parsed);
 			})
 			.catch(() => {})

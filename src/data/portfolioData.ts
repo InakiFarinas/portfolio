@@ -84,76 +84,32 @@ export const PROJECTS = [
 		color: "#7F77DD",
 		colorDark: "#3C3489",
 		icon: "ti-chart-dots-3",
-		linesOfCode: 1204,
-		coverage: 84,
 		demoUrl: "https://poblaciones-mundiales.vercel.app",
 		repoUrl: "https://github.com/InakiFarinas/world-dashboard",
 		repoName: "world-dashboard",
 		stack: ["React", "TypeScript", "Recharts", "React Query"],
 	},
 	{
-		id: "zanola",
-		slug: "inmobiliaria-zanola",
-		title: "Inmobiliaria Zanola",
+		id: "julian-cabrera",
+		slug: "julian-cabrera-propiedades",
+		title: "Julian Cabrera Propiedades",
 		description: "Sitio web para inmobiliaria con catálogo de propiedades.",
-		status: "Construyendo" as const,
+		status: "Deployado" as const,
 		color: "#1b7645",
 		colorDark: "#1b4645",
 		icon: "ti-building-estate",
-		linesOfCode: 892,
-		coverage: 71,
-		demoUrl: "https://inmobiliaria-zanola.vercel.app",
+		screenshotUrl: "/projects/julian-cabrera.png",
+		demoUrl: "https://juliancabrerapropiedades.com",
 		repoUrl: "https://github.com/InakiFarinas/Inmobiliaria-Zanola",
 		repoName: "Inmobiliaria-Zanola",
 		stack: ["React", "Vite", "Tailwind CSS", "React Router"],
 	},
 ];
 
-// Calcular stats dinámicamente
-const getTechCount = () => TECHS.length;
-
-const getTotalLinesOfCode = () => {
-	return PROJECTS.reduce((total, project) => total + project.linesOfCode, 0);
-};
-
 export const PROFILE = {
 	name: "Iñaki Fariñas",
-	role: "Frontend Dev · Junior",
-	status: "disponible para trabajar",
 	github: "InakiFarinas",
-	stats: {
-		projects: PROJECTS.length,
-		techs: getTechCount(),
-		linesOfCode: getTotalLinesOfCode(),
-		yearsExp: 1,
-	},
+	email: "inakifarinas04@gmail.com",
+	whatsapp: "https://wa.me/5491135959887",
+	whatsappLabel: "+54 9 11 3595-9887",
 };
-
-export const CHAT_RESPONSES: Record<string, string> = {
-	default:
-		"Podés preguntarme sobre mis proyectos, tecnologías, disponibilidad o cómo contactarme.",
-	tecnolog: "Trabajo principalmente con React, TypeScript y Tailwind CSS.",
-	hola: "¡Hola! Soy Iñaki, ¿En qué puedo ayudarte?",
-	proyecto:
-		"Tengo dos proyectos destacados: un dashboard de estadísticas mundiales y un sitio para inmobiliaria. Ambos están en mi GitHub.",
-	disponib:
-		"Sí, estoy disponible para trabajar. Abierto a oportunidades remotas o en el Gran Buenos Aires.",
-	contacto:
-		"Podés escribirme a inakifarinas04@gmail.com o por WhatsApp al +54 9 11 3595-9887.",
-	estudi:
-		"Estudio Tecnicatura en Desarrollo de Software y complemento con proyectos propios para el portfolio.",
-	experienc:
-		"Menos de un año de experiencia formal, pero con proyectos reales que muestran dominio de React y el ecosistema moderno de frontend.",
-	github:
-		"Mi GitHub es github.com/InakiFarinas — ahí podés ver el código completo de cada proyecto con todos los commits.",
-	trabajo:
-		"Busco mi primera oportunidad laboral como Frontend Developer Junior. Disponible inmediatamente.",
-};
-
-export function getChatResponse(input: string): string {
-	const lower = input.toLowerCase();
-	for (const [key, response] of Object.entries(CHAT_RESPONSES)) {
-		if (key !== "default" && lower.includes(key)) return response;
-	}
-	return CHAT_RESPONSES.default;
-}
