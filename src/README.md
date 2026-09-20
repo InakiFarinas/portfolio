@@ -13,7 +13,6 @@ src/
 │   └── TopBar.tsx              ← barra superior con tabs, ticker y badge LIVE
 ├── panels/
 │   ├── ActivityFeed.tsx        ← feed de actividad de GitHub en tiempo real
-│   ├── ChatModule.tsx          ← chat interactivo con respuestas por keywords
 │   ├── OperatorPanel.tsx       ← sidebar con perfil, stats y activity feed
 │   ├── ProjectWindow.tsx       ← ventana de proyecto con métricas y preview
 │   └── StackView.tsx           ← grid de tecnologías con filtros y barras

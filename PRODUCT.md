@@ -16,7 +16,7 @@ Portfolio personal de Iñaki Fariñas (Frontend Dev · Junior, GitHub: InakiFari
 Dos cosas a la vez: (1) la interfaz misma, con estilo dashboard/operador (paneles con aspecto de ventana, chat, feed de actividad), demuestra habilidad de UI; (2) hay proyectos reales en producción, incluido el sitio de un cliente (juliancabrerapropiedades.com).
 
 ## Operating Context
-Una sola página con scroll: TopBar (anclas, Contactar, selector de idioma), sidebar con perfil y actividad de GitHub, hero con titular y CV, tarjetas de proyecto con captura y preview en vivo, chat con respuestas predefinidas (con links), stack y enlaces de contacto directos (email, WhatsApp, LinkedIn, GitHub). No hay formulario de contacto.
+Una sola página con scroll: header solo de navegación e idioma (en móvil suma un ícono de mail), sidebar con perfil y actividad de GitHub, hero con titular, CTA por email con copiar y CV, tarjetas de proyecto con captura y preview en vivo, preguntas frecuentes (freelance, cómo empezar, tiempos, stack, experiencia, disponibilidad), stack en formato package.json y enlaces de contacto directos (email, WhatsApp, LinkedIn, GitHub). El chat simulado se eliminó. No hay formulario de contacto.
 
 ## Capabilities and Constraints
 - Stack: React 19, Vite, Tailwind CSS 4 (tokens de color con `@theme` en `src/index.css`), TypeScript; deploy en Vercel.

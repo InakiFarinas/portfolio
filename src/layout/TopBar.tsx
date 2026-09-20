@@ -8,6 +8,7 @@ interface TopBarProps {
 
 const NAV = [
 	{ href: "#proyectos", key: "nav.projects" },
+	{ href: "#faq", key: "nav.faq" },
 	{ href: "#stack", key: "nav.stack" },
 	{ href: "#contacto", key: "nav.contact" },
 ];
@@ -111,15 +112,6 @@ export function TopBar({ onToggleSidebar }: TopBarProps) {
 				</button>
 
 				<a
-					href="/cv.pdf"
-					target="_blank"
-					rel="noopener noreferrer"
-					className="hidden md:flex items-center px-3 min-h-[44px] rounded text-[15px] text-soft hover:text-ink hover:bg-raised transition-colors"
-				>
-					CV
-				</a>
-
-				<a
 					href={mailto}
 					aria-label={t("cta.write")}
 					className="md:hidden flex items-center justify-center min-w-[44px] min-h-[44px] rounded bg-accent text-canvas hover:bg-accent-soft transition-colors"
@@ -127,13 +119,6 @@ export function TopBar({ onToggleSidebar }: TopBarProps) {
 					<i className="ti ti-mail text-[18px]" aria-hidden="true" />
 				</a>
 
-				<a
-					href={mailto}
-					className="hidden md:flex items-center gap-1.5 px-4 min-h-[44px] rounded bg-accent text-canvas text-[15px] font-medium hover:bg-accent-soft transition-colors"
-				>
-					<i className="ti ti-mail text-[16px]" aria-hidden="true" />
-					{t("cta.write")}
-				</a>
 			</div>
 		</header>
 	);

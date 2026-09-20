@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { TopBar } from "./layout/TopBar";
 import { OperatorPanel } from "./panels/OperatorPanel";
 import { ProjectWindow } from "./panels/ProjectWindow";
-import { ChatModule } from "./panels/ChatModule";
+import { Faq } from "./panels/Faq";
 import { StackView } from "./panels/StackView";
 import { ActivityFeed } from "./panels/ActivityFeed";
 import { PROJECTS, PROFILE } from "./data/portfolioData";
@@ -23,6 +23,14 @@ function Footer() {
 	return (
 		<footer className="flex items-center justify-between gap-3 px-4 py-2 bg-canvas border-t border-line shrink-0 font-mono text-[13px] text-muted">
 			<span>{t("footer.location")}</span>
+			<span className="hidden md:flex items-center gap-4">
+				<a href={`mailto:${PROFILE.email}`} className="hover:text-ink transition-colors">
+					{PROFILE.email}
+				</a>
+				<a href="/cv.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-ink transition-colors">
+					CV
+				</a>
+			</span>
 			<span>
 				<span className="hidden sm:inline">{PROFILE.name} · </span>
 				{new Date().getFullYear()}
@@ -40,6 +48,7 @@ const CONTACTS = [
 
 const DRAWER_NAV = [
 	{ href: "#proyectos", key: "nav.projects" },
+	{ href: "#faq", key: "nav.faq" },
 	{ href: "#stack", key: "nav.stack" },
 	{ href: "#contacto", key: "nav.contact" },
 ];
@@ -145,7 +154,7 @@ function MainContent() {
 	const { t } = useI18n();
 
 	return (
-		<div className="h-full overflow-y-auto scroll-smooth p-4 md:p-6 flex flex-col gap-10">
+		<div className="h-full overflow-y-auto scroll-smooth p-4 md:p-6 flex flex-col gap-10 [&>*]:shrink-0">
 			<Hero />
 
 			<section id="proyectos" className="scroll-mt-4">
@@ -160,17 +169,15 @@ function MainContent() {
 				</div>
 			</section>
 
+			<section id="faq" className="scroll-mt-4">
+				<SectionHeading title={t("section.faq")} />
+				<Faq />
+			</section>
+
 			<section id="stack" className="scroll-mt-4">
 				<SectionHeading title={t("section.stack")} />
 				<div className="rounded-lg border border-line bg-surface overflow-hidden">
 					<StackView />
-				</div>
-			</section>
-
-			<section id="chat" className="scroll-mt-4">
-				<SectionHeading title={t("chat.title")} />
-				<div className="rounded-lg border border-line bg-surface overflow-hidden flex flex-col min-h-[400px] sm:min-h-[320px]">
-					<ChatModule />
 				</div>
 			</section>
 
@@ -194,7 +201,7 @@ function MainContent() {
 							</div>
 							<div className="min-w-0">
 								<p className="text-[13px] text-muted">{t(key)}</p>
-								<p className="text-[16px] text-body truncate group-hover:text-accent transition-colors">
+								<p className="font-mono text-[15px] text-body truncate group-hover:text-accent transition-colors">
 									{value}
 								</p>
 							</div>

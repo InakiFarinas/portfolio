@@ -12,6 +12,25 @@ const es = {
 	"nav.stack": "Stack",
 	"hero.avatar": "Foto de Iñaki",
 	"nav.contact": "Contacto",
+	"nav.faq": "Preguntas",
+	"section.faq": "Preguntas frecuentes",
+	"faq.q1": "¿Hacés proyectos freelance?",
+	"faq.a1":
+		"Sí, hago proyectos freelance. Cada uno es distinto, así que cotizo según lo que necesites: contame por email a inakifarinas04@gmail.com o por WhatsApp al +54 9 11 3595-9887.",
+	"faq.q2": "¿Qué necesito para empezar?",
+	"faq.a2":
+		"Me sirve saber qué querés lograr, si ya tenés marca o contenido y para cuándo lo necesitás. Mandámelo a inakifarinas04@gmail.com o por WhatsApp al +54 9 11 3595-9887 y te respondo.",
+	"faq.q3": "¿Cuánto tarda una web?",
+	"faq.a3":
+		"Depende del alcance: una landing simple es distinta de un catálogo con búsqueda. Contame qué necesitás en inakifarinas04@gmail.com y te paso un plazo estimado.",
+	"faq.q4": "¿Con qué tecnologías trabajás?",
+	"faq.a4": "Trabajo principalmente con React, TypeScript y Tailwind CSS.",
+	"faq.q5": "¿Qué experiencia tenés?",
+	"faq.a5":
+		"Menos de un año de experiencia formal, pero con proyectos reales que muestran dominio de React y el ecosistema moderno de frontend.",
+	"faq.q6": "¿Estás disponible?",
+	"faq.a6":
+		"Sí, estoy disponible para trabajar. Abierto a oportunidades remotas o en el Gran Buenos Aires.",
 	"nav.label": "Secciones",
 	"hero.title": "Hola, soy Iñaki. Desarrollo sitios e interfaces que",
 	"hero.titleAccent": "se usan bien.",
@@ -54,19 +73,6 @@ const es = {
 		"Sitio web para una inmobiliaria real, con catálogo de propiedades y en producción.",
 	"project.title.migrascore": "MigraScore",
 	"project.title.julian-cabrera": "Julian Cabrera Propiedades",
-	"chat.title": "Preguntame antes de escribir",
-	"chat.initial": "Preguntame por mi stack, mi experiencia o mi disponibilidad.",
-	"chat.q1": "¿Con qué tecnologías trabajás?",
-	"chat.q2": "¿Cuál es tu experiencia?",
-	"chat.q3": "¿Qué necesito para empezar?",
-	"chat.q4": "¿Hacés trabajos freelance?",
-	"chat.note":
-		"Respuestas automáticas sobre stack, experiencia, disponibilidad y freelance. Para otra cosa, escribime directo.",
-	"chat.placeholder": "Ej: ¿cuánto tarda una web?",
-	"chat.send": "Enviar",
-	"chat.inputLabel": "Tu pregunta",
-	"chat.log": "Conversación",
-	"chat.typing": "El bot está escribiendo…",
 	"contact.email": "Email",
 	"contact.whatsapp": "WhatsApp",
 	"contact.linkedin": "LinkedIn",
@@ -86,6 +92,25 @@ const en: Record<Key, string> = {
 	"nav.stack": "Stack",
 	"hero.avatar": "Photo of Iñaki",
 	"nav.contact": "Contact",
+	"nav.faq": "FAQ",
+	"section.faq": "Frequently asked questions",
+	"faq.q1": "Do you take freelance projects?",
+	"faq.a1":
+		"Yes, I take on freelance projects. Each one is different, so I quote based on what you need: tell me by email at inakifarinas04@gmail.com or on WhatsApp at +54 9 11 3595-9887.",
+	"faq.q2": "What do I need to get started?",
+	"faq.a2":
+		"It helps to know what you want to achieve, whether you already have branding or content, and your deadline. Send it to inakifarinas04@gmail.com or on WhatsApp at +54 9 11 3595-9887 and I'll get back to you.",
+	"faq.q3": "How long does a website take?",
+	"faq.a3":
+		"It depends on scope: a simple landing page is different from a catalog with search. Tell me what you need at inakifarinas04@gmail.com and I'll give you an estimate.",
+	"faq.q4": "Which technologies do you use?",
+	"faq.a4": "I mainly work with React, TypeScript and Tailwind CSS.",
+	"faq.q5": "What's your experience?",
+	"faq.a5":
+		"Less than a year of formal experience, but with real projects that show command of React and the modern frontend ecosystem.",
+	"faq.q6": "Are you available?",
+	"faq.a6":
+		"Yes, I'm available for work. Open to remote roles or on-site in Greater Buenos Aires.",
 	"nav.label": "Sections",
 	"hero.title": "Hi, I'm Iñaki. I build websites and interfaces that",
 	"hero.titleAccent": "are easy to use.",
@@ -128,19 +153,6 @@ const en: Record<Key, string> = {
 		"Website for a real estate agency, with a property catalog. Live in production.",
 	"project.title.migrascore": "MigraScore",
 	"project.title.julian-cabrera": "Julian Cabrera Propiedades",
-	"chat.title": "Ask me before you write",
-	"chat.initial": "Ask me about my stack, my experience or my availability.",
-	"chat.q1": "Which technologies do you use?",
-	"chat.q2": "What's your experience?",
-	"chat.q3": "What do I need to start?",
-	"chat.q4": "Do you take freelance work?",
-	"chat.note":
-		"Automatic replies about stack, experience, availability and freelance. For anything else, write to me directly.",
-	"chat.placeholder": "e.g. How long does a website take?",
-	"chat.send": "Send",
-	"chat.inputLabel": "Your question",
-	"chat.log": "Conversation",
-	"chat.typing": "The bot is typing…",
 	"contact.email": "Email",
 	"contact.whatsapp": "WhatsApp",
 	"contact.linkedin": "LinkedIn",
@@ -149,178 +161,3 @@ const en: Record<Key, string> = {
 };
 
 export const DICT: Record<Lang, Record<Key, string>> = { es, en };
-
-const CHAT_RULES: Record<Lang, { keys: string[]; text: string }[]> = {
-	// De lo más específico a lo más amplio: gana la primera regla que coincide.
-	es: [
-		{
-			keys: ["freelance", "cobr", "presupuesto", "precio", "tarifa", "cotiz", "cuánto sale", "cuanto sale", "cuesta", "costo"],
-			text: "Sí, hago proyectos freelance. Cada uno es distinto, así que cotizo según lo que necesites: contame por email a inakifarinas04@gmail.com o por WhatsApp al +54 9 11 3595-9887.",
-		},
-		{
-			keys: ["empez", "empiez", "comenz", "arrancar"],
-			text: "Para empezar me sirve saber qué querés lograr, si ya tenés marca o contenido y para cuándo lo necesitás. Mandámelo a inakifarinas04@gmail.com o por WhatsApp al +54 9 11 3595-9887 y te respondo.",
-		},
-		{
-			keys: ["cuánto tarda", "cuanto tarda", "cuánto tiempo", "cuanto tiempo", "plazo", "demora"],
-			text: "Depende del alcance: una landing simple es distinta de un catálogo con búsqueda. Contame qué necesitás en inakifarinas04@gmail.com y te paso un plazo estimado.",
-		},
-		{
-			keys: ["ecommerce", "e-commerce", "tienda", "vender online"],
-			text: "Hice El Bazar, un e-commerce con HTML, CSS y JS, como proyecto final (está en mi GitHub). Si necesitás una tienda, contame qué vendés en inakifarinas04@gmail.com.",
-		},
-		{
-			keys: ["wordpress", "wix", "shopify", "nextjs", "next.js", "next"],
-			text: "Mi especialidad son sitios a medida con React y Vite. Contame qué necesitás en inakifarinas04@gmail.com y vemos si encaja.",
-		},
-		{
-			keys: ["una pagina", "un sitio", "una web", "sitio web", "pagina web", "mi negocio", "mi empresa", "landing"],
-			text: "¡Buen punto de partida! Hago sitios a medida con React. Contame qué hace tu negocio y qué querés lograr en inakifarinas04@gmail.com o por WhatsApp al +54 9 11 3595-9887.",
-		},
-		{
-			keys: ["contacto", "contactar", "mail", "whatsapp"],
-			text: "Podés escribirme a inakifarinas04@gmail.com o por WhatsApp al +54 9 11 3595-9887.",
-		},
-		{
-			keys: ["disponib"],
-			text: "Sí, estoy disponible para trabajar. Abierto a oportunidades remotas o en el Gran Buenos Aires.",
-		},
-		{
-			keys: ["tecnolog", "stack", "react", "typescript", "tailwind", "javascript"],
-			text: "Trabajo principalmente con React, TypeScript y Tailwind CSS.",
-		},
-		{
-			keys: ["proyecto"],
-			text: "Tengo dos proyectos destacados: el sitio de una inmobiliaria real y MigraScore, una herramienta que rankea países de destino migratorio según tu perfil. Ambos están en producción y en mi GitHub.",
-		},
-		{
-			keys: ["experienc"],
-			text: "Menos de un año de experiencia formal, pero con proyectos reales que muestran dominio de React y el ecosistema moderno de frontend.",
-		},
-		{
-			keys: ["estudi"],
-			text: "Estudio Tecnicatura en Desarrollo de Software y complemento con proyectos propios para el portfolio.",
-		},
-		{
-			keys: ["github"],
-			text: "Mi GitHub es github.com/InakiFarinas: ahí podés ver el código completo de cada proyecto con todos los commits.",
-		},
-		{
-			keys: ["empleo", "laboral", "contratar", "puesto", "vacante"],
-			text: "Busco mi primera oportunidad laboral como Frontend Developer Junior. Disponible inmediatamente.",
-		},
-		{ keys: ["hola", "buenas"], text: "¡Hola! Soy Iñaki, ¿en qué puedo ayudarte?" },
-	],
-	en: [
-		{
-			keys: ["freelance", "rate", "price", "quote", "budget", "cost"],
-			text: "Yes, I take on freelance projects. Each one is different, so I quote based on what you need: tell me by email at inakifarinas04@gmail.com or on WhatsApp at +54 9 11 3595-9887.",
-		},
-		{
-			keys: ["start", "begin", "get going"],
-			text: "To get started it helps to know what you want to achieve, whether you already have branding or content, and your deadline. Send it to inakifarinas04@gmail.com or on WhatsApp at +54 9 11 3595-9887 and I'll get back to you.",
-		},
-		{
-			keys: ["how long", "timeline", "deadline", "turnaround"],
-			text: "It depends on scope: a simple landing page is different from a catalog with search. Tell me what you need at inakifarinas04@gmail.com and I'll give you an estimate.",
-		},
-		{
-			keys: ["ecommerce", "e-commerce", "online store", "shop"],
-			text: "I built El Bazar, an e-commerce project in HTML, CSS and JS (it's on my GitHub). If you need a store, tell me what you sell at inakifarinas04@gmail.com.",
-		},
-		{
-			keys: ["wordpress", "wix", "shopify", "nextjs", "next.js"],
-			text: "My specialty is custom sites with React and Vite. Tell me what you need at inakifarinas04@gmail.com and we'll see if it fits.",
-		},
-		{
-			keys: ["a website", "a web site", "web page", "my business", "my company", "landing", "need a site"],
-			text: "Good starting point! I build custom sites with React. Tell me what your business does and what you want to achieve at inakifarinas04@gmail.com or on WhatsApp at +54 9 11 3595-9887.",
-		},
-		{
-			keys: ["contact", "reach", "email", "whatsapp"],
-			text: "You can write to me at inakifarinas04@gmail.com or on WhatsApp at +54 9 11 3595-9887.",
-		},
-		{
-			keys: ["availab"],
-			text: "Yes, I'm available for work. Open to remote roles or on-site in Greater Buenos Aires.",
-		},
-		{
-			keys: ["tech", "stack", "react", "typescript", "tailwind", "javascript"],
-			text: "I mainly work with React, TypeScript and Tailwind CSS.",
-		},
-		{
-			keys: ["project"],
-			text: "I have two featured projects: a real estate agency's website and MigraScore, a tool that ranks migration destinations for your profile. Both are live and on my GitHub.",
-		},
-		{
-			keys: ["experience"],
-			text: "Less than a year of formal experience, but with real projects that show command of React and the modern frontend ecosystem.",
-		},
-		{
-			keys: ["study", "studies", "education"],
-			text: "I'm studying a Software Development technical degree and complement it with my own portfolio projects.",
-		},
-		{
-			keys: ["github"],
-			text: "My GitHub is github.com/InakiFarinas: you can see the full code of every project there, commits included.",
-		},
-		{
-			keys: ["job", "hire", "position", "employ"],
-			text: "I'm looking for my first role as a Junior Frontend Developer. Available immediately.",
-		},
-		{ keys: ["hello", "hey"], text: "Hi! I'm Iñaki, how can I help you?" },
-	],
-};
-
-const CHAT_DEFAULT: Record<Lang, string> = {
-	es: "No tengo una respuesta para eso, pero podés escribirme directo a inakifarinas04@gmail.com o por WhatsApp al +54 9 11 3595-9887.",
-	en: "I don't have an answer for that, but you can write to me directly at inakifarinas04@gmail.com or on WhatsApp at +54 9 11 3595-9887.",
-};
-
-/** Quita tildes y pasa a minúsculas para comparar sin depender de la ortografía. */
-function normalize(text: string) {
-	return text
-		.toLowerCase()
-		.normalize("NFD")
-		.replace(/[\u0300-\u036f]/g, "");
-}
-
-// Peso por regla (según su primera palabra clave): las más específicas ganan, el saludo pierde siempre.
-const WEIGHT_BY_FIRST_KEY: Record<string, number> = {
-	freelance: 1.5,
-	empez: 1.3,
-	start: 1.3,
-	"cuanto tarda": 1.3,
-	"how long": 1.3,
-	ecommerce: 1.2,
-	wordpress: 1.6,
-	hola: 0.2,
-	hello: 0.2,
-};
-
-/** Puntúa todas las reglas y devuelve la de mayor puntaje; empata la primera de la lista. */
-export function getChatResponse(input: string, lang: Lang): string {
-	const text = normalize(input);
-	const tokens = text.split(/[^a-z0-9.+-]+/).filter(Boolean);
-	let best: { score: number; text: string } | null = null;
-
-	for (const rule of CHAT_RULES[lang]) {
-		let hits = 0;
-		let longest = 0;
-		for (const raw of rule.keys) {
-			const key = normalize(raw);
-			const matched = key.includes(" ")
-				? text.includes(key)
-				: tokens.some((tok) => tok.startsWith(key));
-			if (matched) {
-				hits += 1;
-				longest = Math.max(longest, key.length);
-			}
-		}
-		if (hits === 0) continue;
-		const weight = WEIGHT_BY_FIRST_KEY[normalize(rule.keys[0])] ?? 1;
-		const score = weight * hits * (1 + longest / 10);
-		if (!best || score > best.score) best = { score, text: rule.text };
-	}
-	return best ? best.text : CHAT_DEFAULT[lang];
-}
