@@ -118,7 +118,7 @@ export function ChatModule() {
 	);
 
 	return (
-		<section aria-labelledby="chat-title" className="flex flex-col h-full min-h-0">
+		<section aria-labelledby="chat-title" className="relative flex flex-col h-full min-h-0">
 			<div className="flex flex-wrap items-center justify-between gap-2 px-4 py-2.5 border-b border-line bg-canvas shrink-0">
 				<div className="min-w-0">
 					<h3 id="chat-title" className="text-[15px] font-medium text-soft">
@@ -138,6 +138,10 @@ export function ChatModule() {
 					))}
 				</div>
 			</div>
+
+			<p role="status" className="sr-only">
+				{typing ? t("chat.typing") : ""}
+			</p>
 
 			<div
 				role="log"

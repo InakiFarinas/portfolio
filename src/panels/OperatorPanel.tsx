@@ -18,11 +18,6 @@ export function OperatorPanel({ avatarSrc, compact }: OperatorPanelProps) {
 			<div className="rounded-lg border border-line bg-surface overflow-hidden">
 				<div className="flex items-center justify-between px-3 py-2 border-b border-line">
 					<h2 className="text-[15px] font-medium text-soft">{t("panel.title")}</h2>
-					<div className="flex gap-1.5" aria-hidden="true">
-						<span className="w-2.5 h-2.5 rounded-full bg-dot-red" />
-						<span className="w-2.5 h-2.5 rounded-full bg-dot-amber" />
-						<span className="w-2.5 h-2.5 rounded-full bg-dot-green" />
-					</div>
 				</div>
 
 				<div className="flex items-center gap-3 px-4 py-4">

@@ -71,10 +71,10 @@ function Hero() {
 			</p>
 			<div className="mt-6 flex flex-wrap gap-3">
 				<a
-					href="#contacto"
+					href={`mailto:${PROFILE.email}?subject=${encodeURIComponent(t("cta.mailSubject"))}`}
 					className="flex items-center gap-2 px-5 min-h-[48px] rounded bg-accent text-canvas text-[16px] font-medium hover:bg-accent-soft transition-colors"
 				>
-					<i className="ti ti-message-circle text-[16px]" aria-hidden="true" />
+					<i className="ti ti-mail text-[16px]" aria-hidden="true" />
 					{t("cta.talk")}
 				</a>
 				<a
@@ -117,10 +117,6 @@ function MainContent() {
 				</div>
 			</section>
 
-			<div className="rounded-lg border border-line bg-surface overflow-hidden flex flex-col min-h-[400px] sm:min-h-[320px]">
-				<ChatModule />
-			</div>
-
 			<section id="stack" className="scroll-mt-4">
 				<SectionHeading title={t("section.stack")} />
 				<div className="rounded-lg border border-line bg-surface overflow-hidden">
@@ -128,7 +124,11 @@ function MainContent() {
 				</div>
 			</section>
 
-			<div className="md:hidden rounded-lg border border-line bg-surface overflow-hidden order-last">
+			<div className="rounded-lg border border-line bg-surface overflow-hidden flex flex-col min-h-[400px] sm:min-h-[320px]">
+				<ChatModule />
+			</div>
+
+			<div className="md:hidden rounded-lg border border-line bg-surface overflow-hidden">
 				<ActivityFeed />
 			</div>
 
@@ -250,7 +250,7 @@ export function DashboardLayout() {
 	const [isSidebarOpen, setSidebarOpen] = useState(false);
 
 	return (
-		<div className="flex flex-col h-dvh bg-canvas text-ink overflow-hidden">
+		<div className="flex flex-col h-dvh bg-canvas text-ink overflow-clip">
 			<a
 				href="#main"
 				className="sr-only focus:not-sr-only focus:absolute focus:z-[60] focus:m-2 focus:px-3 focus:py-2 focus:rounded focus:bg-accent focus:text-canvas text-[15px]"
@@ -260,12 +260,12 @@ export function DashboardLayout() {
 
 			<TopBar onToggleSidebar={() => setSidebarOpen(true)} />
 
-			<div className="flex flex-1 overflow-hidden">
+			<div className="flex flex-1 min-h-0 overflow-hidden">
 				<aside className="hidden md:block w-[260px] shrink-0 border-r border-line overflow-y-auto">
 					<OperatorPanel avatarSrc="/avatar.jpg" />
 				</aside>
 
-				<main id="main" tabIndex={-1} className="flex-1 overflow-hidden outline-none">
+				<main id="main" tabIndex={-1} className="flex-1 min-h-0 overflow-hidden outline-none">
 					<MainContent />
 				</main>
 			</div>

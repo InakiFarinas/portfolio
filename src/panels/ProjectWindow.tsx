@@ -26,9 +26,9 @@ interface ProjectWindowProps {
 }
 
 const STATUS_STYLE = {
-	Deployado: { key: "status.live", color: "#4ade80", border: "#1a3a28", bg: "#0d1f17" },
-	Construyendo: { key: "status.building", color: "#f6c74f", border: "#3a2f12", bg: "#1a1509" },
-	Archivado: { key: "status.archived", color: "#8a9bbb", border: "#1e2535", bg: "#0a0c10" },
+	Deployado: { key: "status.live", color: "var(--color-ok)" },
+	Construyendo: { key: "status.building", color: "var(--color-warn)" },
+	Archivado: { key: "status.archived", color: "var(--color-muted)" },
 } as const;
 
 export function ProjectWindow({ project }: ProjectWindowProps) {
@@ -66,10 +66,8 @@ export function ProjectWindow({ project }: ProjectWindowProps) {
 	return (
 		<article
 			ref={cardRef}
-			className="flex flex-col rounded-lg overflow-hidden border bg-surface transition-colors duration-300"
-			style={
-				{ borderColor: `${project.color}55`, "--pc": project.color } as React.CSSProperties
-			}
+			className="project-card flex flex-col rounded-lg overflow-hidden border bg-surface"
+			style={{ "--pc": project.color } as React.CSSProperties}
 		>
 			<div className="h-[3px]" style={{ background: project.color }} aria-hidden="true" />
 			<div className="flex items-center gap-2 px-3 py-2 bg-canvas border-b border-line">
@@ -89,8 +87,8 @@ export function ProjectWindow({ project }: ProjectWindowProps) {
 					className="text-[13px] font-medium px-2 py-0.5 rounded border"
 					style={{
 						color: status.color,
-						borderColor: status.border,
-						background: status.bg,
+						borderColor: `color-mix(in srgb, ${status.color} 30%, transparent)`,
+						background: `color-mix(in srgb, ${status.color} 12%, transparent)`,
 					}}
 				>
 					{t(status.key)}
@@ -154,9 +152,9 @@ export function ProjectWindow({ project }: ProjectWindowProps) {
 				</div>
 			</div>
 
-			{/* Mobile: no live iframe (weight); show the project card with a clear action instead. */}
+			{/* Mobile: no live iframe (weight); imagen con acción clara, chips debajo para no tapar la captura. */}
 			<div
-				className="md:hidden relative overflow-hidden flex flex-col items-start justify-end gap-3 p-4 h-52"
+				className="md:hidden relative overflow-hidden h-44"
 				style={{ background: project.colorDark }}
 			>
 				{project.screenshotUrl && (
@@ -166,22 +164,11 @@ export function ProjectWindow({ project }: ProjectWindowProps) {
 						className="absolute inset-0 w-full h-full object-cover object-top"
 					/>
 				)}
-				<div className="absolute inset-0 bg-gradient-to-t from-canvas/90 via-canvas/20 to-transparent" aria-hidden="true" />
-				<div className="relative flex gap-1 flex-wrap">
-					{project.stack.slice(0, 3).map((tech) => (
-						<span
-							key={tech}
-							className="text-[13px] px-1.5 py-0.5 rounded bg-black/40 text-ink"
-						>
-							{tech}
-						</span>
-					))}
-				</div>
 				<a
 					href={project.demoUrl}
 					target="_blank"
 					rel="noopener noreferrer"
-					className="relative flex items-center gap-1.5 px-3 min-h-[44px] rounded bg-canvas border border-accent-line text-[15px] text-ink"
+					className="absolute bottom-3 right-3 flex items-center gap-1.5 px-3 min-h-[44px] rounded bg-canvas/90 border border-accent-line text-[15px] text-ink"
 				>
 					{t("project.open")}
 					<i className="ti ti-arrow-up-right text-[16px]" aria-hidden="true" />
@@ -193,6 +180,17 @@ export function ProjectWindow({ project }: ProjectWindowProps) {
 				<p className="text-[15px] text-soft mt-1 leading-snug">
 					{description}
 				</p>
+				<div className="md:hidden mt-2 flex gap-1 flex-wrap">
+					{project.stack.slice(0, 3).map((tech) => (
+						<span
+							key={tech}
+							className="text-[13px] px-1.5 py-0.5 rounded text-ink"
+							style={{ border: `1px solid ${project.color}66` }}
+						>
+							{tech}
+						</span>
+					))}
+				</div>
 			</div>
 
 			<div className="flex flex-wrap items-center gap-x-5 gap-y-2 px-4 py-3">

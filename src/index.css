@@ -23,9 +23,18 @@
 	--color-accent-wash-hover: #33240e;
 	/* Estado */
 	--color-ok: #4ade80;
+	--color-warn: #f6c74f;
 	--color-dot-red: #e24b4a;
 	--color-dot-amber: #ba7517;
 	--color-dot-green: #639922;
+}
+
+.project-card {
+	border-color: color-mix(in srgb, var(--pc) 35%, transparent);
+	transition: border-color 0.3s;
+}
+.project-card:hover {
+	border-color: var(--pc);
 }
 
 @keyframes slideUp {

@@ -18,6 +18,7 @@ const es = {
 		"Desarrollador frontend junior con proyectos reales en producción, como el sitio de una inmobiliaria. Trabajo con React, TypeScript y Tailwind.",
 	"cta.projects": "Ver proyectos",
 	"cta.talk": "Hablemos",
+	"cta.mailSubject": "Consulta desde tu portfolio",
 	"cta.cv": "Ver CV",
 	"lang.to": "Cambiar a English",
 	"menu.open": "Abrir menú",
@@ -44,7 +45,7 @@ const es = {
 	"project.commits": "commits",
 	"project.shot": "Captura de {name}",
 	"project.desc.migrascore":
-		"Herramienta que rankea 8 países de destino migratorio según tu perfil: nacionalidad, profesión, prioridades e idiomas.",
+		"Herramienta que rankea 8 países de destino migratorio según tu perfil: nacionalidad, profesión, prioridades e idiomas. Resultados orientativos.",
 	"project.desc.julian-cabrera":
 		"Sitio web para una inmobiliaria real, con catálogo de propiedades y en producción.",
 	"project.title.migrascore": "MigraScore",
@@ -53,7 +54,7 @@ const es = {
 	"chat.initial": "Preguntame por mi stack, mi experiencia o mi disponibilidad.",
 	"chat.q1": "¿Con qué tecnologías trabajás?",
 	"chat.q2": "¿Cuál es tu experiencia?",
-	"chat.q3": "¿Estás disponible?",
+	"chat.q3": "¿Qué necesito para empezar?",
 	"chat.q4": "¿Hacés trabajos freelance?",
 	"chat.note":
 		"Respuestas automáticas sobre stack, experiencia, disponibilidad y freelance. Para otra cosa, escribime directo.",
@@ -61,6 +62,7 @@ const es = {
 	"chat.send": "Enviar",
 	"chat.inputLabel": "Tu pregunta",
 	"chat.log": "Conversación",
+	"chat.typing": "El bot está escribiendo…",
 	"contact.email": "Email",
 	"contact.whatsapp": "WhatsApp",
 	"contact.linkedin": "LinkedIn",
@@ -86,6 +88,7 @@ const en: Record<Key, string> = {
 		"Junior frontend developer with real projects in production, like a real estate agency's website. I work with React, TypeScript and Tailwind.",
 	"cta.projects": "See projects",
 	"cta.talk": "Let's talk",
+	"cta.mailSubject": "Inquiry from your portfolio",
 	"cta.cv": "View CV",
 	"lang.to": "Cambiar a Español",
 	"menu.open": "Open menu",
@@ -112,7 +115,7 @@ const en: Record<Key, string> = {
 	"project.commits": "commits",
 	"project.shot": "Screenshot of {name}",
 	"project.desc.migrascore":
-		"Tool that ranks 8 migration destinations for your profile: nationality, profession, priorities and languages.",
+		"Tool that ranks 8 migration destinations for your profile: nationality, profession, priorities and languages. Results are indicative.",
 	"project.desc.julian-cabrera":
 		"Website for a real estate agency, with a property catalog. Live in production.",
 	"project.title.migrascore": "MigraScore",
@@ -121,7 +124,7 @@ const en: Record<Key, string> = {
 	"chat.initial": "Ask me about my stack, my experience or my availability.",
 	"chat.q1": "Which technologies do you use?",
 	"chat.q2": "What's your experience?",
-	"chat.q3": "Are you available?",
+	"chat.q3": "What do I need to start?",
 	"chat.q4": "Do you take freelance work?",
 	"chat.note":
 		"Automatic replies about stack, experience, availability and freelance. For anything else, write to me directly.",
@@ -129,6 +132,7 @@ const en: Record<Key, string> = {
 	"chat.send": "Send",
 	"chat.inputLabel": "Your question",
 	"chat.log": "Conversation",
+	"chat.typing": "The bot is typing…",
 	"contact.email": "Email",
 	"contact.whatsapp": "WhatsApp",
 	"contact.linkedin": "LinkedIn",
@@ -144,6 +148,22 @@ const CHAT_RULES: Record<Lang, { keys: string[]; text: string }[]> = {
 		{
 			keys: ["freelance", "cobr", "presupuesto", "precio", "tarifa", "cotiz", "cuánto sale", "cuanto sale", "cuesta", "costo"],
 			text: "Sí, hago proyectos freelance. Cada uno es distinto, así que cotizo según lo que necesites: contame por email a inakifarinas04@gmail.com o por WhatsApp al +54 9 11 3595-9887.",
+		},
+		{
+			keys: ["empez", "empiez", "comenz", "arrancar"],
+			text: "Para empezar me sirve saber qué querés lograr, si ya tenés marca o contenido y para cuándo lo necesitás. Mandámelo a inakifarinas04@gmail.com o por WhatsApp al +54 9 11 3595-9887 y te respondo.",
+		},
+		{
+			keys: ["cuánto tarda", "cuanto tarda", "cuánto tiempo", "cuanto tiempo", "plazo", "demora"],
+			text: "Depende del alcance: una landing simple es distinta de un catálogo con búsqueda. Contame qué necesitás en inakifarinas04@gmail.com y te paso un plazo estimado.",
+		},
+		{
+			keys: ["ecommerce", "e-commerce", "tienda", "vender online"],
+			text: "Hice El Bazar, un e-commerce con HTML, CSS y JS, como proyecto final (está en mi GitHub). Si necesitás una tienda, contame qué vendés en inakifarinas04@gmail.com.",
+		},
+		{
+			keys: ["wordpress", "wix", "shopify", "nextjs", "next.js"],
+			text: "Mi especialidad son sitios a medida con React y Vite. Contame qué necesitás en inakifarinas04@gmail.com y vemos si encaja.",
 		},
 		{
 			keys: ["contacto", "contactar", "mail", "whatsapp"],
@@ -183,6 +203,22 @@ const CHAT_RULES: Record<Lang, { keys: string[]; text: string }[]> = {
 		{
 			keys: ["freelance", "rate", "price", "quote", "budget", "cost"],
 			text: "Yes, I take on freelance projects. Each one is different, so I quote based on what you need: tell me by email at inakifarinas04@gmail.com or on WhatsApp at +54 9 11 3595-9887.",
+		},
+		{
+			keys: ["start", "begin", "get going"],
+			text: "To get started it helps to know what you want to achieve, whether you already have branding or content, and your deadline. Send it to inakifarinas04@gmail.com or on WhatsApp at +54 9 11 3595-9887 and I'll get back to you.",
+		},
+		{
+			keys: ["how long", "timeline", "deadline", "turnaround"],
+			text: "It depends on scope: a simple landing page is different from a catalog with search. Tell me what you need at inakifarinas04@gmail.com and I'll give you an estimate.",
+		},
+		{
+			keys: ["ecommerce", "e-commerce", "online store", "shop"],
+			text: "I built El Bazar, an e-commerce project in HTML, CSS and JS (it's on my GitHub). If you need a store, tell me what you sell at inakifarinas04@gmail.com.",
+		},
+		{
+			keys: ["wordpress", "wix", "shopify", "nextjs", "next.js"],
+			text: "My specialty is custom sites with React and Vite. Tell me what you need at inakifarinas04@gmail.com and we'll see if it fits.",
 		},
 		{
 			keys: ["contact", "reach", "email", "whatsapp"],
