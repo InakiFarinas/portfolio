@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useI18n } from "../i18n/context";
+import { PROFILE } from "../data/portfolioData";
 
 interface TopBarProps {
 	onToggleSidebar?: () => void;
@@ -58,6 +59,7 @@ export function TopBar({ onToggleSidebar }: TopBarProps) {
 	const { t, lang, setLang } = useI18n();
 	const { displayed: logoText, triggerGlitch } = useGlitch("iñaki.dev");
 	const target = lang === "es" ? "en" : "es";
+	const mailto = `mailto:${PROFILE.email}?subject=${encodeURIComponent(t("cta.mailSubject"))}`;
 
 	return (
 		<header className="flex items-center gap-2 px-4 py-2 bg-surface border-b border-line shrink-0">
@@ -72,13 +74,17 @@ export function TopBar({ onToggleSidebar }: TopBarProps) {
 			)}
 
 			<div
-				className="flex items-center gap-2 select-none"
+				className="relative flex items-center gap-2 select-none"
 				onMouseEnter={triggerGlitch}
 			>
 				<span className="w-2 h-2 rounded-full bg-accent" aria-hidden="true" />
-				<span className="font-mono text-[15px] font-medium text-accent tracking-tight">
+				<span
+					aria-hidden="true"
+					className="font-mono text-[15px] font-medium text-accent tracking-tight"
+				>
 					{logoText}
 				</span>
+				<span className="sr-only">iñaki.dev</span>
 			</div>
 
 			<nav aria-label={t("nav.label")} className="hidden md:flex gap-1 ml-6">
@@ -105,11 +111,28 @@ export function TopBar({ onToggleSidebar }: TopBarProps) {
 				</button>
 
 				<a
-					href="#contacto"
+					href="/cv.pdf"
+					target="_blank"
+					rel="noopener noreferrer"
+					className="hidden md:flex items-center px-3 min-h-[44px] rounded text-[15px] text-soft hover:text-ink hover:bg-raised transition-colors"
+				>
+					CV
+				</a>
+
+				<a
+					href={mailto}
+					aria-label={t("cta.write")}
+					className="md:hidden flex items-center justify-center min-w-[44px] min-h-[44px] rounded bg-accent text-canvas hover:bg-accent-soft transition-colors"
+				>
+					<i className="ti ti-mail text-[18px]" aria-hidden="true" />
+				</a>
+
+				<a
+					href={mailto}
 					className="hidden md:flex items-center gap-1.5 px-4 min-h-[44px] rounded bg-accent text-canvas text-[15px] font-medium hover:bg-accent-soft transition-colors"
 				>
 					<i className="ti ti-mail text-[16px]" aria-hidden="true" />
-					{t("cta.talk")}
+					{t("cta.write")}
 				</a>
 			</div>
 		</header>

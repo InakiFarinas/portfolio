@@ -46,6 +46,35 @@ const DRAWER_NAV = [
 
 function Hero() {
 	const { t } = useI18n();
+	const [copied, setCopied] = useState(false);
+
+	async function copyEmail() {
+		let ok = false;
+		try {
+			await navigator.clipboard.writeText(PROFILE.email);
+			ok = true;
+		} catch {
+			// Sin permiso de portapapeles: se intenta con el método clásico.
+			const area = document.createElement("textarea");
+			area.value = PROFILE.email;
+			area.setAttribute("readonly", "");
+			area.style.position = "fixed";
+			area.style.opacity = "0";
+			document.body.appendChild(area);
+			area.select();
+			try {
+				ok = document.execCommand("copy");
+			} catch {
+				ok = false;
+			}
+			area.remove();
+		}
+		if (ok) {
+			setCopied(true);
+			setTimeout(() => setCopied(false), 2000);
+		}
+	}
+
 	return (
 		<section className="pt-3 md:pt-2 pb-4">
 			<div className="md:hidden flex items-center gap-3 mb-4">
@@ -63,20 +92,34 @@ function Hero() {
 				<span className="w-2 h-2 rounded-full bg-ok" aria-hidden="true" />
 				{t("profile.status")}
 			</p>
-			<h1 className="mt-3 max-w-[20ch] text-[clamp(2rem,5vw,3.25rem)] leading-[1.05] font-bold tracking-tight text-ink text-balance">
-				{t("hero.title")}
+			<h1 className="mt-3 max-w-[18ch] text-[clamp(2.25rem,6vw,4rem)] leading-[1.02] font-bold tracking-tight text-ink text-balance">
+				{t("hero.title")} <span className="text-accent">{t("hero.titleAccent")}</span>
 			</h1>
 			<p className="mt-4 max-w-[60ch] text-[17px] leading-relaxed text-soft">
 				{t("hero.sub")}
 			</p>
 			<div className="mt-6 flex flex-wrap gap-3">
-				<a
-					href={`mailto:${PROFILE.email}?subject=${encodeURIComponent(t("cta.mailSubject"))}`}
-					className="flex items-center gap-2 px-5 min-h-[48px] rounded bg-accent text-canvas text-[16px] font-medium hover:bg-accent-soft transition-colors"
-				>
-					<i className="ti ti-mail text-[16px]" aria-hidden="true" />
-					{t("cta.talk")}
-				</a>
+				<div className="flex">
+					<a
+						href={`mailto:${PROFILE.email}?subject=${encodeURIComponent(t("cta.mailSubject"))}`}
+						className="flex items-center gap-2 px-5 min-h-[48px] rounded-l bg-accent text-canvas text-[16px] font-medium hover:bg-accent-soft transition-colors"
+					>
+						<i className="ti ti-mail text-[16px]" aria-hidden="true" />
+						{t("cta.talk")}
+					</a>
+					<button
+						type="button"
+						onClick={copyEmail}
+						aria-label={copied ? t("cta.copied") : t("cta.copy")}
+						title={copied ? t("cta.copied") : t("cta.copy")}
+						className="flex items-center justify-center min-w-[48px] min-h-[48px] rounded-r border-l border-canvas/30 bg-accent text-canvas hover:bg-accent-soft transition-colors"
+					>
+						<i className={`ti ${copied ? "ti-check" : "ti-copy"} text-[18px]`} aria-hidden="true" />
+					</button>
+					<span role="status" className="sr-only">
+						{copied ? t("cta.copied") : ""}
+					</span>
+				</div>
 				<a
 					href="#proyectos"
 					className="flex items-center gap-2 px-5 min-h-[48px] rounded border border-accent-line text-accent text-[16px] font-medium hover:bg-accent-wash transition-colors"
@@ -124,9 +167,12 @@ function MainContent() {
 				</div>
 			</section>
 
-			<div className="rounded-lg border border-line bg-surface overflow-hidden flex flex-col min-h-[400px] sm:min-h-[320px]">
-				<ChatModule />
-			</div>
+			<section id="chat" className="scroll-mt-4">
+				<SectionHeading title={t("chat.title")} />
+				<div className="rounded-lg border border-line bg-surface overflow-hidden flex flex-col min-h-[400px] sm:min-h-[320px]">
+					<ChatModule />
+				</div>
+			</section>
 
 			<div className="md:hidden rounded-lg border border-line bg-surface overflow-hidden">
 				<ActivityFeed />
@@ -214,6 +260,15 @@ function MobileDrawer({ onClose }: { onClose: () => void }) {
 					</button>
 				</div>
 				<nav aria-label={t("nav.label")} className="px-3 pb-2 flex flex-col">
+					<a
+						href="/cv.pdf"
+						target="_blank"
+						rel="noopener noreferrer"
+						onClick={onClose}
+						className="px-3 min-h-[44px] flex items-center rounded text-[16px] text-ink hover:bg-raised"
+					>
+						{t("cta.cv")}
+					</a>
 					{DRAWER_NAV.map(({ href, key }) => (
 						<a
 							key={key}

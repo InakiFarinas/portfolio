@@ -118,12 +118,9 @@ export function ChatModule() {
 	);
 
 	return (
-		<section aria-labelledby="chat-title" className="relative flex flex-col h-full min-h-0">
+		<section aria-label={t("chat.title")} className="relative flex flex-col h-full min-h-0">
 			<div className="flex flex-wrap items-center justify-between gap-2 px-4 py-2.5 border-b border-line bg-canvas shrink-0">
 				<div className="min-w-0">
-					<h3 id="chat-title" className="text-[15px] font-medium text-soft">
-						{t("chat.title")}
-					</h3>
 					<p className="text-[13px] text-muted">{t("chat.note")}</p>
 				</div>
 				<div className="grid w-full grid-cols-2 gap-1.5 sm:flex sm:w-auto sm:flex-wrap sm:justify-end">

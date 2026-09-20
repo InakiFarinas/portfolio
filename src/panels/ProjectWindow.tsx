@@ -59,7 +59,7 @@ export function ProjectWindow({ project }: ProjectWindowProps) {
 	const wide =
 		typeof window !== "undefined" &&
 		window.matchMedia("(min-width: 768px)").matches;
-	const filename = useTypewriter(`${project.slug}.tsx`, inView);
+	const filename = useTypewriter(`${project.id}.tsx`, inView);
 	const title = t(`project.title.${project.id}`);
 	const description = t(`project.desc.${project.id}`);
 

@@ -13,18 +13,22 @@ const es = {
 	"hero.avatar": "Foto de Iñaki",
 	"nav.contact": "Contacto",
 	"nav.label": "Secciones",
-	"hero.title": "Hola, soy Iñaki. Desarrollo sitios e interfaces que se usan bien.",
+	"hero.title": "Hola, soy Iñaki. Desarrollo sitios e interfaces que",
+	"hero.titleAccent": "se usan bien.",
 	"hero.sub":
 		"Desarrollador frontend junior con proyectos reales en producción, como el sitio de una inmobiliaria. Trabajo con React, TypeScript y Tailwind.",
 	"cta.projects": "Ver proyectos",
 	"cta.talk": "Hablemos",
+	"cta.write": "Escribime",
+	"cta.copy": "Copiar email",
+	"cta.copied": "Email copiado",
 	"cta.mailSubject": "Consulta desde tu portfolio",
 	"cta.cv": "Ver CV",
 	"lang.to": "Cambiar a English",
 	"menu.open": "Abrir menú",
 	"menu.close": "Cerrar menú",
 	"profile.role": "Desarrollador Frontend · Junior",
-	"profile.status": "disponible para trabajar",
+	"profile.status": "disponible para trabajar · Gran Buenos Aires o remoto",
 	"panel.title": "Sobre mí",
 	"feed.title": "En GitHub",
 	"feed.syncing": "sincronizando...",
@@ -50,7 +54,7 @@ const es = {
 		"Sitio web para una inmobiliaria real, con catálogo de propiedades y en producción.",
 	"project.title.migrascore": "MigraScore",
 	"project.title.julian-cabrera": "Julian Cabrera Propiedades",
-	"chat.title": "Preguntame algo",
+	"chat.title": "Preguntame antes de escribir",
 	"chat.initial": "Preguntame por mi stack, mi experiencia o mi disponibilidad.",
 	"chat.q1": "¿Con qué tecnologías trabajás?",
 	"chat.q2": "¿Cuál es tu experiencia?",
@@ -58,7 +62,7 @@ const es = {
 	"chat.q4": "¿Hacés trabajos freelance?",
 	"chat.note":
 		"Respuestas automáticas sobre stack, experiencia, disponibilidad y freelance. Para otra cosa, escribime directo.",
-	"chat.placeholder": "Escribí tu pregunta...",
+	"chat.placeholder": "Ej: ¿cuánto tarda una web?",
 	"chat.send": "Enviar",
 	"chat.inputLabel": "Tu pregunta",
 	"chat.log": "Conversación",
@@ -83,18 +87,22 @@ const en: Record<Key, string> = {
 	"hero.avatar": "Photo of Iñaki",
 	"nav.contact": "Contact",
 	"nav.label": "Sections",
-	"hero.title": "Hi, I'm Iñaki. I build websites and interfaces that are easy to use.",
+	"hero.title": "Hi, I'm Iñaki. I build websites and interfaces that",
+	"hero.titleAccent": "are easy to use.",
 	"hero.sub":
 		"Junior frontend developer with real projects in production, like a real estate agency's website. I work with React, TypeScript and Tailwind.",
 	"cta.projects": "See projects",
 	"cta.talk": "Let's talk",
+	"cta.write": "Email me",
+	"cta.copy": "Copy email",
+	"cta.copied": "Email copied",
 	"cta.mailSubject": "Inquiry from your portfolio",
 	"cta.cv": "View CV",
 	"lang.to": "Cambiar a Español",
 	"menu.open": "Open menu",
 	"menu.close": "Close menu",
 	"profile.role": "Frontend Developer · Junior",
-	"profile.status": "available for work",
+	"profile.status": "available for work · Greater Buenos Aires or remote",
 	"panel.title": "About me",
 	"feed.title": "On GitHub",
 	"feed.syncing": "syncing...",
@@ -120,7 +128,7 @@ const en: Record<Key, string> = {
 		"Website for a real estate agency, with a property catalog. Live in production.",
 	"project.title.migrascore": "MigraScore",
 	"project.title.julian-cabrera": "Julian Cabrera Propiedades",
-	"chat.title": "Ask me anything",
+	"chat.title": "Ask me before you write",
 	"chat.initial": "Ask me about my stack, my experience or my availability.",
 	"chat.q1": "Which technologies do you use?",
 	"chat.q2": "What's your experience?",
@@ -128,7 +136,7 @@ const en: Record<Key, string> = {
 	"chat.q4": "Do you take freelance work?",
 	"chat.note":
 		"Automatic replies about stack, experience, availability and freelance. For anything else, write to me directly.",
-	"chat.placeholder": "Type your question...",
+	"chat.placeholder": "e.g. How long does a website take?",
 	"chat.send": "Send",
 	"chat.inputLabel": "Your question",
 	"chat.log": "Conversation",
@@ -162,8 +170,12 @@ const CHAT_RULES: Record<Lang, { keys: string[]; text: string }[]> = {
 			text: "Hice El Bazar, un e-commerce con HTML, CSS y JS, como proyecto final (está en mi GitHub). Si necesitás una tienda, contame qué vendés en inakifarinas04@gmail.com.",
 		},
 		{
-			keys: ["wordpress", "wix", "shopify", "nextjs", "next.js"],
+			keys: ["wordpress", "wix", "shopify", "nextjs", "next.js", "next"],
 			text: "Mi especialidad son sitios a medida con React y Vite. Contame qué necesitás en inakifarinas04@gmail.com y vemos si encaja.",
+		},
+		{
+			keys: ["una pagina", "un sitio", "una web", "sitio web", "pagina web", "mi negocio", "mi empresa", "landing"],
+			text: "¡Buen punto de partida! Hago sitios a medida con React. Contame qué hace tu negocio y qué querés lograr en inakifarinas04@gmail.com o por WhatsApp al +54 9 11 3595-9887.",
 		},
 		{
 			keys: ["contacto", "contactar", "mail", "whatsapp"],
@@ -221,6 +233,10 @@ const CHAT_RULES: Record<Lang, { keys: string[]; text: string }[]> = {
 			text: "My specialty is custom sites with React and Vite. Tell me what you need at inakifarinas04@gmail.com and we'll see if it fits.",
 		},
 		{
+			keys: ["a website", "a web site", "web page", "my business", "my company", "landing", "need a site"],
+			text: "Good starting point! I build custom sites with React. Tell me what your business does and what you want to achieve at inakifarinas04@gmail.com or on WhatsApp at +54 9 11 3595-9887.",
+		},
+		{
 			keys: ["contact", "reach", "email", "whatsapp"],
 			text: "You can write to me at inakifarinas04@gmail.com or on WhatsApp at +54 9 11 3595-9887.",
 		},
@@ -261,10 +277,50 @@ const CHAT_DEFAULT: Record<Lang, string> = {
 	en: "I don't have an answer for that, but you can write to me directly at inakifarinas04@gmail.com or on WhatsApp at +54 9 11 3595-9887.",
 };
 
+/** Quita tildes y pasa a minúsculas para comparar sin depender de la ortografía. */
+function normalize(text: string) {
+	return text
+		.toLowerCase()
+		.normalize("NFD")
+		.replace(/[\u0300-\u036f]/g, "");
+}
+
+// Peso por regla (según su primera palabra clave): las más específicas ganan, el saludo pierde siempre.
+const WEIGHT_BY_FIRST_KEY: Record<string, number> = {
+	freelance: 1.5,
+	empez: 1.3,
+	start: 1.3,
+	"cuanto tarda": 1.3,
+	"how long": 1.3,
+	ecommerce: 1.2,
+	wordpress: 1.6,
+	hola: 0.2,
+	hello: 0.2,
+};
+
+/** Puntúa todas las reglas y devuelve la de mayor puntaje; empata la primera de la lista. */
 export function getChatResponse(input: string, lang: Lang): string {
-	const lower = ` ${input.toLowerCase()} `;
+	const text = normalize(input);
+	const tokens = text.split(/[^a-z0-9.+-]+/).filter(Boolean);
+	let best: { score: number; text: string } | null = null;
+
 	for (const rule of CHAT_RULES[lang]) {
-		if (rule.keys.some((k) => lower.includes(k))) return rule.text;
+		let hits = 0;
+		let longest = 0;
+		for (const raw of rule.keys) {
+			const key = normalize(raw);
+			const matched = key.includes(" ")
+				? text.includes(key)
+				: tokens.some((tok) => tok.startsWith(key));
+			if (matched) {
+				hits += 1;
+				longest = Math.max(longest, key.length);
+			}
+		}
+		if (hits === 0) continue;
+		const weight = WEIGHT_BY_FIRST_KEY[normalize(rule.keys[0])] ?? 1;
+		const score = weight * hits * (1 + longest / 10);
+		if (!best || score > best.score) best = { score, text: rule.text };
 	}
-	return CHAT_DEFAULT[lang];
+	return best ? best.text : CHAT_DEFAULT[lang];
 }
