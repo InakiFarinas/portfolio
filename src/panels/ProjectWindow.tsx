@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useRepoCommits } from "../hooks/useRepoCommits";
 import { useCountUp } from "../hooks/useCountUp";
+import { useTypewriter } from "../hooks/useTypewriter";
 import { PROFILE } from "../data/portfolioData";
 import { useI18n } from "../i18n/context";
 
@@ -36,12 +37,12 @@ export function ProjectWindow({ project }: ProjectWindowProps) {
 	const animatedCommits = useCountUp(commits ?? 0, 1000);
 	const status = STATUS_STYLE[project.status];
 	// El iframe pesa: se monta recién cuando la tarjeta entra en pantalla (y nunca en móvil, donde está oculto).
-	const previewRef = useRef<HTMLDivElement>(null);
+	const cardRef = useRef<HTMLElement>(null);
 	const [inView, setInView] = useState(
 		() => typeof IntersectionObserver === "undefined",
 	);
 	useEffect(() => {
-		const el = previewRef.current;
+		const el = cardRef.current;
 		if (!el || inView) return;
 		const io = new IntersectionObserver(
 			([entry]) => {
@@ -55,22 +56,31 @@ export function ProjectWindow({ project }: ProjectWindowProps) {
 		io.observe(el);
 		return () => io.disconnect();
 	}, [inView]);
+	const wide =
+		typeof window !== "undefined" &&
+		window.matchMedia("(min-width: 768px)").matches;
+	const filename = useTypewriter(`${project.slug}.tsx`, inView);
 	const title = t(`project.title.${project.id}`);
 	const description = t(`project.desc.${project.id}`);
 
 	return (
 		<article
+			ref={cardRef}
 			className="flex flex-col rounded-lg overflow-hidden border bg-surface transition-colors duration-300"
 			style={{ borderColor: `${project.color}55` }}
 		>
 			<div className="flex items-center gap-2 px-3 py-2 bg-canvas border-b border-line">
 				<div className="flex gap-1.5" aria-hidden="true">
-					<span className="w-2.5 h-2.5 rounded-full bg-dot-red" />
-					<span className="w-2.5 h-2.5 rounded-full bg-dot-amber" />
-					<span className="w-2.5 h-2.5 rounded-full bg-dot-green" />
+					{["bg-dot-red", "bg-dot-amber", "bg-dot-green"].map((color, i) => (
+						<span
+							key={color}
+							className={`w-2.5 h-2.5 rounded-full transition-colors duration-300 ${inView ? color : "bg-line-strong"}`}
+							style={{ transitionDelay: `${i * 140}ms` }}
+						/>
+					))}
 				</div>
 				<span className="font-mono text-[13px] text-muted ml-1 flex-1 truncate">
-					{project.slug}.tsx
+					{filename}
 				</span>
 				<span
 					className="text-[13px] font-medium px-2 py-0.5 rounded border"
@@ -86,7 +96,6 @@ export function ProjectWindow({ project }: ProjectWindowProps) {
 
 			{/* Desktop: live preview. The open-site link stays reachable even if the site refuses to be framed. */}
 			<div
-				ref={previewRef}
 				className="hidden md:block relative h-72 bg-canvas overflow-hidden"
 			>
 				{project.screenshotUrl && (
@@ -96,7 +105,7 @@ export function ProjectWindow({ project }: ProjectWindowProps) {
 						className="absolute inset-0 w-full h-full object-cover object-top"
 					/>
 				)}
-				{inView && (
+				{inView && wide && (
 				<iframe
 					src={project.demoUrl}
 					className="absolute top-0 left-0 border-0 pointer-events-none"

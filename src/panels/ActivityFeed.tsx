@@ -42,7 +42,7 @@ export function ActivityFeed() {
 						<div className="min-w-0 flex-1">
 							<p className="text-[15px] text-body truncate">{repo}</p>
 							<p className="font-mono text-[13px] text-muted">
-								{t("feed.events", { n: count })}
+								{t(count === 1 ? "feed.event.one" : "feed.event.other", { n: count })}
 							</p>
 						</div>
 						<span className="font-mono text-[13px] text-muted shrink-0">{time}</span>

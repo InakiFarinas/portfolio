@@ -4,6 +4,7 @@ import { OperatorPanel } from "./panels/OperatorPanel";
 import { ProjectWindow } from "./panels/ProjectWindow";
 import { ChatModule } from "./panels/ChatModule";
 import { StackView } from "./panels/StackView";
+import { ActivityFeed } from "./panels/ActivityFeed";
 import { PROJECTS, PROFILE } from "./data/portfolioData";
 import { useI18n } from "./i18n/context";
 
@@ -59,8 +60,15 @@ function Hero() {
 			</p>
 			<div className="mt-6 flex flex-wrap gap-3">
 				<a
-					href="#proyectos"
+					href="#contacto"
 					className="flex items-center gap-2 px-5 min-h-[48px] rounded bg-accent text-canvas text-[16px] font-medium hover:bg-accent-soft transition-colors"
+				>
+					<i className="ti ti-message-circle text-[16px]" aria-hidden="true" />
+					{t("cta.talk")}
+				</a>
+				<a
+					href="#proyectos"
+					className="flex items-center gap-2 px-5 min-h-[48px] rounded border border-accent-line text-accent text-[16px] font-medium hover:bg-accent-wash transition-colors"
 				>
 					{t("cta.projects")}
 					<i className="ti ti-arrow-down text-[16px]" aria-hidden="true" />
@@ -69,7 +77,7 @@ function Hero() {
 					href="/cv.pdf"
 					target="_blank"
 					rel="noopener noreferrer"
-					className="flex items-center gap-2 px-5 min-h-[48px] rounded border border-accent-line text-accent text-[16px] font-medium hover:bg-accent-wash transition-colors"
+					className="flex items-center gap-2 px-3 min-h-[48px] text-muted text-[16px] hover:text-ink transition-colors"
 				>
 					<i className="ti ti-file-cv text-[16px]" aria-hidden="true" />
 					{t("cta.cv")}
@@ -98,7 +106,7 @@ function MainContent() {
 				</div>
 			</section>
 
-			<div className="rounded-lg border border-line bg-surface overflow-hidden flex flex-col min-h-[480px] sm:min-h-[320px]">
+			<div className="rounded-lg border border-line bg-surface overflow-hidden flex flex-col min-h-[400px] sm:min-h-[320px]">
 				<ChatModule />
 			</div>
 
@@ -108,6 +116,10 @@ function MainContent() {
 					<StackView />
 				</div>
 			</section>
+
+			<div className="md:hidden rounded-lg border border-line bg-surface overflow-hidden order-last">
+				<ActivityFeed />
+			</div>
 
 			<section id="contacto" tabIndex={-1} className="scroll-mt-4 outline-none">
 				<SectionHeading title={t("section.contact")} />
@@ -202,21 +214,21 @@ function MobileDrawer({ onClose }: { onClose: () => void }) {
 						</a>
 					))}
 				</nav>
-				<div className="px-3 pb-2 flex gap-2">
-					{CONTACTS.slice(0, 2).map(({ icon, key, href }) => (
+				<div className="px-3 pb-2 grid grid-cols-2 gap-2">
+					{CONTACTS.map(({ icon, key, href }) => (
 						<a
 							key={key}
 							href={href}
 							target="_blank"
 							rel="noopener noreferrer"
-							className="flex-1 flex items-center justify-center gap-2 min-h-[44px] rounded border border-accent-line text-accent text-[15px]"
+							className="flex items-center justify-center gap-2 min-h-[44px] rounded border border-accent-line text-accent text-[15px]"
 						>
 							<i className={`ti ${icon} text-[16px]`} aria-hidden="true" />
 							{t(key)}
 						</a>
 					))}
 				</div>
-				<OperatorPanel avatarSrc="/avatar.jpg" />
+				<OperatorPanel avatarSrc="/avatar.jpg" compact />
 			</div>
 		</div>
 	);

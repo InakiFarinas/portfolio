@@ -16,6 +16,7 @@ const es = {
 	"hero.sub":
 		"Desarrollador frontend junior con proyectos reales en producción, como el sitio de una inmobiliaria. Trabajo con React, TypeScript y Tailwind.",
 	"cta.projects": "Ver proyectos",
+	"cta.talk": "Hablemos",
 	"cta.contact": "Contactar",
 	"cta.cv": "Ver CV",
 	"lang.to": "Cambiar a English",
@@ -26,7 +27,8 @@ const es = {
 	"panel.title": "Sobre mí",
 	"feed.title": "En GitHub",
 	"feed.syncing": "sincronizando...",
-	"feed.events": "{n} eventos",
+	"feed.event.one": "{n} evento",
+	"feed.event.other": "{n} eventos",
 	"feed.empty": "Sin actividad para mostrar.",
 	"feed.profile": "ver perfil completo",
 	"section.projects": "Proyectos",
@@ -52,7 +54,8 @@ const es = {
 	"chat.q1": "¿Con qué tecnologías trabajás?",
 	"chat.q2": "¿Cuál es tu experiencia?",
 	"chat.q3": "¿Estás disponible?",
-	"chat.q4": "¿Cómo te contacto?",
+	"chat.q4": "¿Hacés trabajos freelance?",
+	"chat.note": "Respuestas automáticas: si tu duda es otra, escribime directo.",
 	"chat.placeholder": "Escribí tu pregunta...",
 	"chat.send": "Enviar",
 	"chat.inputLabel": "Tu pregunta",
@@ -85,6 +88,7 @@ const en: Record<Key, string> = {
 	"hero.sub":
 		"Junior frontend developer with real projects in production, like a real estate agency's website. I work with React, TypeScript and Tailwind.",
 	"cta.projects": "See projects",
+	"cta.talk": "Let's talk",
 	"cta.contact": "Contact",
 	"cta.cv": "View CV",
 	"lang.to": "Cambiar a Español",
@@ -95,7 +99,8 @@ const en: Record<Key, string> = {
 	"panel.title": "About me",
 	"feed.title": "On GitHub",
 	"feed.syncing": "syncing...",
-	"feed.events": "{n} events",
+	"feed.event.one": "{n} event",
+	"feed.event.other": "{n} events",
 	"feed.empty": "No activity to show.",
 	"feed.profile": "view full profile",
 	"section.projects": "Projects",
@@ -121,7 +126,8 @@ const en: Record<Key, string> = {
 	"chat.q1": "Which technologies do you use?",
 	"chat.q2": "What's your experience?",
 	"chat.q3": "Are you available?",
-	"chat.q4": "How can I contact you?",
+	"chat.q4": "Do you take freelance work?",
+	"chat.note": "Automatic replies: if your question is different, write to me directly.",
 	"chat.placeholder": "Type your question...",
 	"chat.send": "Send",
 	"chat.inputLabel": "Your question",
@@ -142,6 +148,10 @@ export const DICT: Record<Lang, Record<Key, string>> = { es, en };
 
 const CHAT_RULES: Record<Lang, { keys: string[]; text: string }[]> = {
 	es: [
+		{
+			keys: ["freelance", "cobr", "presupuesto", "precio", "tarifa", "cotiz"],
+			text: "Sí, hago proyectos freelance. Cada uno es distinto, así que cotizo según lo que necesites: contame por email a inakifarinas04@gmail.com o por WhatsApp al +54 9 11 3595-9887.",
+		},
 		{
 			keys: ["tecnolog"],
 			text: "Trabajo principalmente con React, TypeScript y Tailwind CSS.",
@@ -178,6 +188,10 @@ const CHAT_RULES: Record<Lang, { keys: string[]; text: string }[]> = {
 	],
 	en: [
 		{
+			keys: ["freelance", "rate", "price", "quote", "budget", "cost"],
+			text: "Yes, I take on freelance projects. Each one is different, so I quote based on what you need: tell me by email at inakifarinas04@gmail.com or on WhatsApp at +54 9 11 3595-9887.",
+		},
+		{
 			keys: ["tech", "stack"],
 			text: "I mainly work with React, TypeScript and Tailwind CSS.",
 		},
@@ -207,7 +221,7 @@ const CHAT_RULES: Record<Lang, { keys: string[]; text: string }[]> = {
 			text: "My GitHub is github.com/InakiFarinas: you can see the full code of every project there, commits included.",
 		},
 		{
-			keys: ["job", "work", "hire"],
+			keys: ["job", "work", "hire", "position"],
 			text: "I'm looking for my first role as a Junior Frontend Developer. Available immediately.",
 		},
 	],

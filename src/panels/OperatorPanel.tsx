@@ -4,13 +4,17 @@ import { ActivityFeed } from "./ActivityFeed";
 
 interface OperatorPanelProps {
 	avatarSrc?: string; // ruta a tu foto, ej: "/avatar.jpg"
+	/** Versión corta para el drawer móvil: solo perfil, sin feed. */
+	compact?: boolean;
 }
 
-export function OperatorPanel({ avatarSrc }: OperatorPanelProps) {
+export function OperatorPanel({ avatarSrc, compact }: OperatorPanelProps) {
 	const { t } = useI18n();
 
 	return (
-		<div className="flex flex-col gap-3 h-full overflow-y-auto py-3 px-3">
+		<div
+			className={`flex flex-col gap-3 py-3 px-3 ${compact ? "" : "h-full overflow-y-auto"}`}
+		>
 			<div className="rounded-lg border border-line bg-surface overflow-hidden">
 				<div className="flex items-center justify-between px-3 py-2 border-b border-line">
 					<h2 className="text-[15px] font-medium text-soft">{t("panel.title")}</h2>
@@ -42,9 +46,11 @@ export function OperatorPanel({ avatarSrc }: OperatorPanelProps) {
 				</div>
 			</div>
 
-			<div className="rounded-lg border border-line bg-surface overflow-hidden">
-				<ActivityFeed />
-			</div>
+			{!compact && (
+				<div className="rounded-lg border border-line bg-surface overflow-hidden">
+					<ActivityFeed />
+				</div>
+			)}
 		</div>
 	);
 }

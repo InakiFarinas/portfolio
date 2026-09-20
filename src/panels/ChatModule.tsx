@@ -120,18 +120,18 @@ export function ChatModule() {
 	return (
 		<section aria-labelledby="chat-title" className="flex flex-col h-full min-h-0">
 			<div className="flex flex-wrap items-center justify-between gap-2 px-4 py-2.5 border-b border-line bg-canvas shrink-0">
-				<h3
-					id="chat-title"
-					className="text-[15px] font-medium text-soft"
-				>
-					{t("chat.title")}
-				</h3>
-				<div className="flex gap-1.5 flex-wrap justify-end">
+				<div className="min-w-0">
+					<h3 id="chat-title" className="text-[15px] font-medium text-soft">
+						{t("chat.title")}
+					</h3>
+					<p className="text-[13px] text-muted">{t("chat.note")}</p>
+				</div>
+				<div className="flex w-full gap-1.5 flex-nowrap overflow-x-auto sm:w-auto sm:flex-wrap sm:overflow-visible sm:justify-end">
 					{QUICK_KEYS.map((k) => (
 						<button
 							key={k}
 							onClick={() => sendMessage(t(k), k)}
-							className="text-[13px] px-2.5 py-1.5 min-h-[44px] rounded border border-line bg-surface text-soft hover:border-accent-strong hover:text-accent transition-colors"
+							className="shrink-0 text-[13px] px-2.5 py-1.5 min-h-[44px] rounded border border-line bg-surface text-soft hover:border-accent-strong hover:text-accent transition-colors"
 						>
 							{t(k)}
 						</button>
