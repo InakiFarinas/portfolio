@@ -67,8 +67,11 @@ export function ProjectWindow({ project }: ProjectWindowProps) {
 		<article
 			ref={cardRef}
 			className="flex flex-col rounded-lg overflow-hidden border bg-surface transition-colors duration-300"
-			style={{ borderColor: `${project.color}55` }}
+			style={
+				{ borderColor: `${project.color}55`, "--pc": project.color } as React.CSSProperties
+			}
 		>
+			<div className="h-[3px]" style={{ background: project.color }} aria-hidden="true" />
 			<div className="flex items-center gap-2 px-3 py-2 bg-canvas border-b border-line">
 				<div className="flex gap-1.5" aria-hidden="true">
 					{["bg-dot-red", "bg-dot-amber", "bg-dot-green"].map((color, i) => (
@@ -130,7 +133,7 @@ export function ProjectWindow({ project }: ProjectWindowProps) {
 					href={project.demoUrl}
 					target="_blank"
 					rel="noopener noreferrer"
-					className="absolute top-3 right-3 flex items-center gap-1.5 px-3 min-h-[44px] rounded bg-canvas/90 border border-accent-line text-[15px] text-ink hover:border-accent transition-colors"
+					className="absolute bottom-3 right-3 flex items-center gap-1.5 px-3 min-h-[44px] rounded bg-canvas/90 border border-accent-line text-[15px] text-ink hover:border-[var(--pc)] transition-colors"
 				>
 					{t("project.open")}
 					<i className="ti ti-arrow-up-right text-[16px]" aria-hidden="true" />
@@ -197,7 +200,7 @@ export function ProjectWindow({ project }: ProjectWindowProps) {
 					href={project.repoUrl}
 					target="_blank"
 					rel="noopener noreferrer"
-					className="flex items-center gap-1.5 min-h-[44px] text-[15px] text-soft hover:text-accent transition-colors"
+					className="flex items-center gap-1.5 min-h-[44px] text-[15px] text-soft hover:text-[var(--pc)] transition-colors"
 				>
 					<i className="ti ti-brand-github text-[16px]" aria-hidden="true" />
 					{t("project.code")}
@@ -206,7 +209,7 @@ export function ProjectWindow({ project }: ProjectWindowProps) {
 					href={project.demoUrl}
 					target="_blank"
 					rel="noopener noreferrer"
-					className="flex items-center gap-1.5 min-h-[44px] text-[15px] text-soft hover:text-ok transition-colors"
+					className="flex items-center gap-1.5 min-h-[44px] text-[15px] text-soft hover:text-[var(--pc)] transition-colors"
 				>
 					<i className="ti ti-external-link text-[16px]" aria-hidden="true" />
 					{t("project.demo")}
@@ -214,7 +217,7 @@ export function ProjectWindow({ project }: ProjectWindowProps) {
 				{(loading || commits !== null) && (
 					<span className="ml-auto flex items-center gap-1.5 font-mono text-[13px] text-muted">
 						<i className="ti ti-git-commit text-[16px]" aria-hidden="true" />
-						<span className="text-ink">{loading ? "…" : animatedCommits}</span>
+						<span style={{ color: project.color }}>{loading ? "…" : animatedCommits}</span>
 						{t("project.commits")}
 					</span>
 				)}

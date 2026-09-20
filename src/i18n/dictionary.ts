@@ -10,6 +10,7 @@ const es = {
 	"brand.sub": "Portfolio",
 	"nav.projects": "Proyectos",
 	"nav.stack": "Stack",
+	"hero.avatar": "Foto de Iñaki",
 	"nav.contact": "Contacto",
 	"nav.label": "Secciones",
 	"hero.title": "Hola, soy Iñaki. Desarrollo sitios e interfaces que se usan bien.",
@@ -17,7 +18,6 @@ const es = {
 		"Desarrollador frontend junior con proyectos reales en producción, como el sitio de una inmobiliaria. Trabajo con React, TypeScript y Tailwind.",
 	"cta.projects": "Ver proyectos",
 	"cta.talk": "Hablemos",
-	"cta.contact": "Contactar",
 	"cta.cv": "Ver CV",
 	"lang.to": "Cambiar a English",
 	"menu.open": "Abrir menú",
@@ -35,7 +35,6 @@ const es = {
 	"section.stack": "Stack y skills",
 	"section.contact": "Contacto directo",
 	"count.projects": "{n} proyectos",
-	"count.techs": "{n} tecnologías",
 	"status.live": "En producción",
 	"status.building": "En construcción",
 	"status.archived": "Archivado",
@@ -44,10 +43,11 @@ const es = {
 	"project.open": "Abrir sitio",
 	"project.commits": "commits",
 	"project.shot": "Captura de {name}",
-	"project.desc.world-stats": "Dashboard interactivo de estadísticas globales.",
+	"project.desc.migrascore":
+		"Herramienta que rankea 8 países de destino migratorio según tu perfil: nacionalidad, profesión, prioridades e idiomas.",
 	"project.desc.julian-cabrera":
 		"Sitio web para una inmobiliaria real, con catálogo de propiedades y en producción.",
-	"project.title.world-stats": "Poblaciones Mundiales",
+	"project.title.migrascore": "MigraScore",
 	"project.title.julian-cabrera": "Julian Cabrera Propiedades",
 	"chat.title": "Preguntame algo",
 	"chat.initial": "Preguntame por mi stack, mi experiencia o mi disponibilidad.",
@@ -55,16 +55,12 @@ const es = {
 	"chat.q2": "¿Cuál es tu experiencia?",
 	"chat.q3": "¿Estás disponible?",
 	"chat.q4": "¿Hacés trabajos freelance?",
-	"chat.note": "Respuestas automáticas: si tu duda es otra, escribime directo.",
+	"chat.note":
+		"Respuestas automáticas sobre stack, experiencia, disponibilidad y freelance. Para otra cosa, escribime directo.",
 	"chat.placeholder": "Escribí tu pregunta...",
 	"chat.send": "Enviar",
 	"chat.inputLabel": "Tu pregunta",
 	"chat.log": "Conversación",
-	"stack.title": "Stack tecnológico",
-	"cat.todas": "Todas",
-	"cat.frontend": "Frontend",
-	"cat.backend": "Backend",
-	"cat.tools": "Herramientas",
 	"contact.email": "Email",
 	"contact.whatsapp": "WhatsApp",
 	"contact.linkedin": "LinkedIn",
@@ -82,6 +78,7 @@ const en: Record<Key, string> = {
 	"brand.sub": "Portfolio",
 	"nav.projects": "Projects",
 	"nav.stack": "Stack",
+	"hero.avatar": "Photo of Iñaki",
 	"nav.contact": "Contact",
 	"nav.label": "Sections",
 	"hero.title": "Hi, I'm Iñaki. I build websites and interfaces that are easy to use.",
@@ -89,7 +86,6 @@ const en: Record<Key, string> = {
 		"Junior frontend developer with real projects in production, like a real estate agency's website. I work with React, TypeScript and Tailwind.",
 	"cta.projects": "See projects",
 	"cta.talk": "Let's talk",
-	"cta.contact": "Contact",
 	"cta.cv": "View CV",
 	"lang.to": "Cambiar a Español",
 	"menu.open": "Open menu",
@@ -107,7 +103,6 @@ const en: Record<Key, string> = {
 	"section.stack": "Stack & skills",
 	"section.contact": "Get in touch",
 	"count.projects": "{n} projects",
-	"count.techs": "{n} technologies",
 	"status.live": "Live",
 	"status.building": "In progress",
 	"status.archived": "Archived",
@@ -116,10 +111,11 @@ const en: Record<Key, string> = {
 	"project.open": "Open site",
 	"project.commits": "commits",
 	"project.shot": "Screenshot of {name}",
-	"project.desc.world-stats": "Interactive dashboard of global statistics.",
+	"project.desc.migrascore":
+		"Tool that ranks 8 migration destinations for your profile: nationality, profession, priorities and languages.",
 	"project.desc.julian-cabrera":
 		"Website for a real estate agency, with a property catalog. Live in production.",
-	"project.title.world-stats": "World Populations",
+	"project.title.migrascore": "MigraScore",
 	"project.title.julian-cabrera": "Julian Cabrera Propiedades",
 	"chat.title": "Ask me anything",
 	"chat.initial": "Ask me about my stack, my experience or my availability.",
@@ -127,16 +123,12 @@ const en: Record<Key, string> = {
 	"chat.q2": "What's your experience?",
 	"chat.q3": "Are you available?",
 	"chat.q4": "Do you take freelance work?",
-	"chat.note": "Automatic replies: if your question is different, write to me directly.",
+	"chat.note":
+		"Automatic replies about stack, experience, availability and freelance. For anything else, write to me directly.",
 	"chat.placeholder": "Type your question...",
 	"chat.send": "Send",
 	"chat.inputLabel": "Your question",
 	"chat.log": "Conversation",
-	"stack.title": "Tech stack",
-	"cat.todas": "All",
-	"cat.frontend": "Frontend",
-	"cat.backend": "Backend",
-	"cat.tools": "Tools",
 	"contact.email": "Email",
 	"contact.whatsapp": "WhatsApp",
 	"contact.linkedin": "LinkedIn",
@@ -147,44 +139,45 @@ const en: Record<Key, string> = {
 export const DICT: Record<Lang, Record<Key, string>> = { es, en };
 
 const CHAT_RULES: Record<Lang, { keys: string[]; text: string }[]> = {
+	// De lo más específico a lo más amplio: gana la primera regla que coincide.
 	es: [
 		{
-			keys: ["freelance", "cobr", "presupuesto", "precio", "tarifa", "cotiz"],
+			keys: ["freelance", "cobr", "presupuesto", "precio", "tarifa", "cotiz", "cuánto sale", "cuanto sale", "cuesta", "costo"],
 			text: "Sí, hago proyectos freelance. Cada uno es distinto, así que cotizo según lo que necesites: contame por email a inakifarinas04@gmail.com o por WhatsApp al +54 9 11 3595-9887.",
 		},
 		{
-			keys: ["tecnolog"],
-			text: "Trabajo principalmente con React, TypeScript y Tailwind CSS.",
-		},
-		{ keys: ["hola"], text: "¡Hola! Soy Iñaki, ¿en qué puedo ayudarte?" },
-		{
-			keys: ["proyecto"],
-			text: "Tengo dos proyectos destacados: un dashboard de estadísticas mundiales y el sitio de una inmobiliaria real, que está en producción. Ambos están en mi GitHub.",
+			keys: ["contacto", "contactar", "mail", "whatsapp"],
+			text: "Podés escribirme a inakifarinas04@gmail.com o por WhatsApp al +54 9 11 3595-9887.",
 		},
 		{
 			keys: ["disponib"],
 			text: "Sí, estoy disponible para trabajar. Abierto a oportunidades remotas o en el Gran Buenos Aires.",
 		},
 		{
-			keys: ["contacto", "contactar"],
-			text: "Podés escribirme a inakifarinas04@gmail.com o por WhatsApp al +54 9 11 3595-9887.",
+			keys: ["tecnolog", "stack", "react", "typescript", "tailwind", "javascript"],
+			text: "Trabajo principalmente con React, TypeScript y Tailwind CSS.",
 		},
 		{
-			keys: ["estudi"],
-			text: "Estudio Tecnicatura en Desarrollo de Software y complemento con proyectos propios para el portfolio.",
+			keys: ["proyecto"],
+			text: "Tengo dos proyectos destacados: el sitio de una inmobiliaria real y MigraScore, una herramienta que rankea países de destino migratorio según tu perfil. Ambos están en producción y en mi GitHub.",
 		},
 		{
 			keys: ["experienc"],
 			text: "Menos de un año de experiencia formal, pero con proyectos reales que muestran dominio de React y el ecosistema moderno de frontend.",
 		},
 		{
+			keys: ["estudi"],
+			text: "Estudio Tecnicatura en Desarrollo de Software y complemento con proyectos propios para el portfolio.",
+		},
+		{
 			keys: ["github"],
 			text: "Mi GitHub es github.com/InakiFarinas: ahí podés ver el código completo de cada proyecto con todos los commits.",
 		},
 		{
-			keys: ["trabajo"],
+			keys: ["empleo", "laboral", "contratar", "puesto", "vacante"],
 			text: "Busco mi primera oportunidad laboral como Frontend Developer Junior. Disponible inmediatamente.",
 		},
+		{ keys: ["hola", "buenas"], text: "¡Hola! Soy Iñaki, ¿en qué puedo ayudarte?" },
 	],
 	en: [
 		{
@@ -192,38 +185,38 @@ const CHAT_RULES: Record<Lang, { keys: string[]; text: string }[]> = {
 			text: "Yes, I take on freelance projects. Each one is different, so I quote based on what you need: tell me by email at inakifarinas04@gmail.com or on WhatsApp at +54 9 11 3595-9887.",
 		},
 		{
-			keys: ["tech", "stack"],
-			text: "I mainly work with React, TypeScript and Tailwind CSS.",
-		},
-		{ keys: ["hello", "hi "], text: "Hi! I'm Iñaki, how can I help you?" },
-		{
-			keys: ["project"],
-			text: "I have two featured projects: a world statistics dashboard and the website of a real estate agency, which is live in production. Both are on my GitHub.",
+			keys: ["contact", "reach", "email", "whatsapp"],
+			text: "You can write to me at inakifarinas04@gmail.com or on WhatsApp at +54 9 11 3595-9887.",
 		},
 		{
 			keys: ["availab"],
 			text: "Yes, I'm available for work. Open to remote roles or on-site in Greater Buenos Aires.",
 		},
 		{
-			keys: ["contact", "reach", "email"],
-			text: "You can write to me at inakifarinas04@gmail.com or on WhatsApp at +54 9 11 3595-9887.",
+			keys: ["tech", "stack", "react", "typescript", "tailwind", "javascript"],
+			text: "I mainly work with React, TypeScript and Tailwind CSS.",
 		},
 		{
-			keys: ["study", "studies", "education"],
-			text: "I'm studying a Software Development technical degree and complement it with my own portfolio projects.",
+			keys: ["project"],
+			text: "I have two featured projects: a real estate agency's website and MigraScore, a tool that ranks migration destinations for your profile. Both are live and on my GitHub.",
 		},
 		{
 			keys: ["experience"],
 			text: "Less than a year of formal experience, but with real projects that show command of React and the modern frontend ecosystem.",
 		},
 		{
+			keys: ["study", "studies", "education"],
+			text: "I'm studying a Software Development technical degree and complement it with my own portfolio projects.",
+		},
+		{
 			keys: ["github"],
 			text: "My GitHub is github.com/InakiFarinas: you can see the full code of every project there, commits included.",
 		},
 		{
-			keys: ["job", "work", "hire", "position"],
+			keys: ["job", "hire", "position", "employ"],
 			text: "I'm looking for my first role as a Junior Frontend Developer. Available immediately.",
 		},
+		{ keys: ["hello", "hey"], text: "Hi! I'm Iñaki, how can I help you?" },
 	],
 };
 

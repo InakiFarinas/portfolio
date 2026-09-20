@@ -47,7 +47,18 @@ const DRAWER_NAV = [
 function Hero() {
 	const { t } = useI18n();
 	return (
-		<section className="pt-2 pb-4">
+		<section className="pt-3 md:pt-2 pb-4">
+			<div className="md:hidden flex items-center gap-3 mb-4">
+				<img
+					src="/avatar.jpg"
+					alt={t("hero.avatar")}
+					className="w-12 h-12 rounded-full object-cover border-2 border-accent-line"
+				/>
+				<div>
+					<p className="text-[16px] font-medium text-ink">{PROFILE.name}</p>
+					<p className="text-[14px] text-muted">{t("profile.role")}</p>
+				</div>
+			</div>
 			<p className="flex items-center gap-2 text-[15px] text-ok">
 				<span className="w-2 h-2 rounded-full bg-ok" aria-hidden="true" />
 				{t("profile.status")}
@@ -77,7 +88,7 @@ function Hero() {
 					href="/cv.pdf"
 					target="_blank"
 					rel="noopener noreferrer"
-					className="flex items-center gap-2 px-3 min-h-[48px] text-muted text-[16px] hover:text-ink transition-colors"
+					className="flex items-center gap-2 px-3 min-h-[48px] text-soft text-[16px] hover:text-ink transition-colors"
 				>
 					<i className="ti ti-file-cv text-[16px]" aria-hidden="true" />
 					{t("cta.cv")}

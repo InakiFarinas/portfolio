@@ -109,7 +109,7 @@ export function TopBar({ onToggleSidebar }: TopBarProps) {
 					className="flex items-center gap-1.5 px-4 min-h-[44px] rounded bg-accent text-canvas text-[15px] font-medium hover:bg-accent-soft transition-colors"
 				>
 					<i className="ti ti-mail text-[16px]" aria-hidden="true" />
-					{t("cta.contact")}
+					{t("cta.talk")}
 				</a>
 			</div>
 		</header>

@@ -126,12 +126,12 @@ export function ChatModule() {
 					</h3>
 					<p className="text-[13px] text-muted">{t("chat.note")}</p>
 				</div>
-				<div className="flex w-full gap-1.5 flex-nowrap overflow-x-auto sm:w-auto sm:flex-wrap sm:overflow-visible sm:justify-end">
+				<div className="grid w-full grid-cols-2 gap-1.5 sm:flex sm:w-auto sm:flex-wrap sm:justify-end">
 					{QUICK_KEYS.map((k) => (
 						<button
 							key={k}
 							onClick={() => sendMessage(t(k), k)}
-							className="shrink-0 text-[13px] px-2.5 py-1.5 min-h-[44px] rounded border border-line bg-surface text-soft hover:border-accent-strong hover:text-accent transition-colors"
+							className="text-left sm:text-center text-[13px] px-2.5 py-1.5 min-h-[44px] rounded border border-line bg-surface text-soft hover:border-accent-strong hover:text-accent transition-colors"
 						>
 							{t(k)}
 						</button>
@@ -141,7 +141,7 @@ export function ChatModule() {
 
 			<div
 				role="log"
-				aria-live="polite"
+				aria-live={messages.length > 0 ? "polite" : "off"}
 				aria-label={t("chat.log")}
 				className="flex-1 overflow-y-auto px-4 py-3 flex flex-col gap-3 min-h-0"
 			>
