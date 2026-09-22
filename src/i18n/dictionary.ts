@@ -65,6 +65,8 @@ const es = {
 	"project.code": "código",
 	"project.demo": "ver sitio",
 	"project.open": "Abrir sitio",
+	"project.client": "Trabajo para cliente",
+	"project.live": "Vista en vivo",
 	"project.commits": "commits",
 	"project.shot": "Captura de {name}",
 	"project.desc.migrascore":
@@ -72,6 +74,9 @@ const es = {
 	"project.desc.julian-cabrera":
 		"Sitio web para una inmobiliaria real, con catálogo de propiedades y en producción.",
 	"project.title.migrascore": "MigraScore",
+	"project.title.platarank": "PlataRank",
+	"project.desc.platarank":
+		"Ranking de crafteo de Albion Online por plata realizable por día: ganancia × volumen de ventas × cuota de mercado, con la derivación de cada precio a la vista.",
 	"project.title.julian-cabrera": "Julian Cabrera Propiedades",
 	"contact.email": "Email",
 	"contact.whatsapp": "WhatsApp",
@@ -145,6 +150,8 @@ const en: Record<Key, string> = {
 	"project.code": "code",
 	"project.demo": "visit site",
 	"project.open": "Open site",
+	"project.client": "Client work",
+	"project.live": "Live preview",
 	"project.commits": "commits",
 	"project.shot": "Screenshot of {name}",
 	"project.desc.migrascore":
@@ -152,6 +159,9 @@ const en: Record<Key, string> = {
 	"project.desc.julian-cabrera":
 		"Website for a real estate agency, with a property catalog. Live in production.",
 	"project.title.migrascore": "MigraScore",
+	"project.title.platarank": "PlataRank",
+	"project.desc.platarank":
+		"Albion Online crafting ranking by realizable silver per day: profit × sales volume × market share, with every price derivation on display.",
 	"project.title.julian-cabrera": "Julian Cabrera Propiedades",
 	"contact.email": "Email",
 	"contact.whatsapp": "WhatsApp",

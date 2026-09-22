@@ -23,6 +23,7 @@ interface Project {
 
 interface ProjectWindowProps {
 	project: Project;
+	featured?: boolean;
 }
 
 const STATUS_STYLE = {
@@ -31,7 +32,7 @@ const STATUS_STYLE = {
 	Archivado: { key: "status.archived", color: "var(--color-muted)" },
 } as const;
 
-export function ProjectWindow({ project }: ProjectWindowProps) {
+export function ProjectWindow({ project, featured }: ProjectWindowProps) {
 	const { t } = useI18n();
 	const { commits, loading } = useRepoCommits(PROFILE.github, project.repoName);
 	const animatedCommits = useCountUp(commits ?? 0, 1000);
@@ -66,11 +67,15 @@ export function ProjectWindow({ project }: ProjectWindowProps) {
 	return (
 		<article
 			ref={cardRef}
-			className="project-card flex flex-col rounded-lg overflow-hidden border bg-surface"
+			className={`project-card flex flex-col rounded-lg overflow-hidden border bg-surface ${featured ? "xl:col-span-2 xl:flex-row" : ""}`}
 			style={{ "--pc": project.color } as React.CSSProperties}
 		>
-			<div className="h-[3px]" style={{ background: project.color }} aria-hidden="true" />
-			<div className="flex items-center gap-2 px-3 py-2 bg-canvas border-b border-line">
+			<div
+				className={featured ? "xl:hidden h-[3px]" : "h-[3px]"}
+				style={{ background: project.color }}
+				aria-hidden="true"
+			/>
+			<div className={featured ? "xl:hidden flex items-center gap-2 px-3 py-2 bg-canvas border-b border-line" : "flex items-center gap-2 px-3 py-2 bg-canvas border-b border-line"}>
 				<div className="flex gap-1.5" aria-hidden="true">
 					{["bg-dot-red", "bg-dot-amber", "bg-dot-green"].map((color, i) => (
 						<span
@@ -80,11 +85,11 @@ export function ProjectWindow({ project }: ProjectWindowProps) {
 						/>
 					))}
 				</div>
-				<span className="font-mono text-[13px] text-muted ml-1 flex-1 truncate">
+				<span className="font-mono text-[14px] text-muted ml-1 flex-1 truncate">
 					{filename}
 				</span>
 				<span
-					className="text-[13px] font-medium px-2 py-0.5 rounded border"
+					className="text-[14px] font-medium px-2 py-0.5 rounded border"
 					style={{
 						color: status.color,
 						borderColor: `color-mix(in srgb, ${status.color} 30%, transparent)`,
@@ -97,7 +102,7 @@ export function ProjectWindow({ project }: ProjectWindowProps) {
 
 			{/* Desktop: live preview. The open-site link stays reachable even if the site refuses to be framed. */}
 			<div
-				className="hidden md:block relative h-72 bg-canvas overflow-hidden"
+				className={`hidden md:block relative bg-canvas overflow-hidden ${featured ? "h-72 xl:h-auto xl:w-[46%] xl:shrink-0" : "h-72"}`}
 			>
 				{project.screenshotUrl && (
 					<img
@@ -136,20 +141,20 @@ export function ProjectWindow({ project }: ProjectWindowProps) {
 					{t("project.open")}
 					<i className="ti ti-arrow-up-right text-[16px]" aria-hidden="true" />
 				</a>
-				<div className="absolute bottom-2 left-3 flex gap-1 flex-wrap">
-					{project.stack.slice(0, 3).map((tech) => (
-						<span
-							key={tech}
-							className="text-[13px] px-1.5 py-0.5 rounded bg-black/60"
-							style={{
-								color: "#e2e8f0",
-								border: `1px solid ${project.color}66`,
-							}}
-						>
-							{tech}
-						</span>
-					))}
-				</div>
+				{featured && (
+					<span
+						className="absolute top-3 left-3 text-[14px] font-medium px-2 py-0.5 rounded bg-canvas/90 border"
+						style={{ color: project.color, borderColor: `${project.color}66` }}
+					>
+						{t("project.client")}
+					</span>
+				)}
+				{inView && wide && (
+					<span className="absolute bottom-3 left-3 flex items-center gap-1.5 text-[14px] px-2 py-0.5 rounded bg-canvas/90 border border-line text-muted">
+						<span className="w-1.5 h-1.5 rounded-full bg-ok animate-pulse" aria-hidden="true" />
+						{t("project.live")}
+					</span>
+				)}
 			</div>
 
 			{/* Mobile: no live iframe (weight); imagen con acción clara, chips debajo para no tapar la captura. */}
@@ -175,50 +180,69 @@ export function ProjectWindow({ project }: ProjectWindowProps) {
 				</a>
 			</div>
 
-			<div className="px-4 pt-3 pb-1">
-				<h3 className="text-[20px] font-bold tracking-tight text-ink">{title}</h3>
-				<p className="text-[15px] text-soft mt-1 leading-snug">
-					{description}
-				</p>
-				<div className="md:hidden mt-2 flex gap-1 flex-wrap">
-					{project.stack.slice(0, 3).map((tech) => (
-						<span
-							key={tech}
-							className="text-[13px] px-1.5 py-0.5 rounded text-ink"
-							style={{ border: `1px solid ${project.color}66` }}
-						>
-							{tech}
+			<div className={featured ? "flex flex-col flex-1 min-w-0" : "contents"}>
+				{featured && (
+					<div className="hidden xl:flex items-center gap-2 px-3 py-2 bg-canvas border-b border-line">
+						<span className="font-mono text-[14px] text-muted flex-1 truncate">
+							{filename}
 						</span>
-					))}
-				</div>
-			</div>
-
-			<div className="flex flex-wrap items-center gap-x-5 gap-y-2 px-4 py-3">
-				<a
-					href={project.repoUrl}
-					target="_blank"
-					rel="noopener noreferrer"
-					className="flex items-center gap-1.5 min-h-[44px] text-[15px] text-soft hover:text-[var(--pc)] transition-colors"
-				>
-					<i className="ti ti-brand-github text-[16px]" aria-hidden="true" />
-					{t("project.code")}
-				</a>
-				<a
-					href={project.demoUrl}
-					target="_blank"
-					rel="noopener noreferrer"
-					className="flex items-center gap-1.5 min-h-[44px] text-[15px] text-soft hover:text-[var(--pc)] transition-colors"
-				>
-					<i className="ti ti-external-link text-[16px]" aria-hidden="true" />
-					{t("project.demo")}
-				</a>
-				{(loading || commits !== null) && (
-					<span className="ml-auto flex items-center gap-1.5 font-mono text-[13px] text-muted">
-						<i className="ti ti-git-commit text-[16px]" aria-hidden="true" />
-						<span style={{ color: project.color }}>{loading ? "…" : animatedCommits}</span>
-						{t("project.commits")}
-					</span>
+						<span
+							className="text-[14px] font-medium px-2 py-0.5 rounded border"
+							style={{
+								color: status.color,
+								borderColor: `color-mix(in srgb, ${status.color} 30%, transparent)`,
+								background: `color-mix(in srgb, ${status.color} 12%, transparent)`,
+							}}
+						>
+							{t(status.key)}
+						</span>
+					</div>
 				)}
+				<div className="px-4 pt-3 pb-1">
+					<h3 className="text-[20px] font-bold tracking-tight text-ink">{title}</h3>
+					<p className="text-[15px] text-soft mt-1 leading-snug">
+						{description}
+					</p>
+					<div className="mt-2 flex gap-1 flex-wrap">
+						{project.stack.slice(0, 3).map((tech) => (
+							<span
+								key={tech}
+								className="text-[14px] px-1.5 py-0.5 rounded text-ink"
+								style={{ border: `1px solid ${project.color}66` }}
+							>
+								{tech}
+							</span>
+						))}
+					</div>
+				</div>
+
+				<div className="flex flex-wrap items-center gap-x-5 gap-y-2 px-4 py-3 mt-auto">
+					<a
+						href={project.repoUrl}
+						target="_blank"
+						rel="noopener noreferrer"
+						className="flex items-center gap-1.5 min-h-[44px] text-[15px] text-soft hover:text-[var(--pc)] transition-colors"
+					>
+						<i className="ti ti-brand-github text-[16px]" aria-hidden="true" />
+						{t("project.code")}
+					</a>
+					<a
+						href={project.demoUrl}
+						target="_blank"
+						rel="noopener noreferrer"
+						className="flex items-center gap-1.5 min-h-[44px] text-[15px] text-soft hover:text-[var(--pc)] transition-colors"
+					>
+						<i className="ti ti-external-link text-[16px]" aria-hidden="true" />
+						{t("project.demo")}
+					</a>
+					{(loading || commits !== null) && (
+						<span className="ml-auto flex items-center gap-1.5 font-mono text-[14px] text-muted">
+							<i className="ti ti-git-commit text-[16px]" aria-hidden="true" />
+							<span style={{ color: project.color }}>{loading ? "…" : animatedCommits}</span>
+							{t("project.commits")}
+						</span>
+					)}
+				</div>
 			</div>
 		</article>
 	);

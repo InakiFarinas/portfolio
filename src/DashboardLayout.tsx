@@ -13,7 +13,7 @@ function SectionHeading({ title, count }: { title: string; count?: string }) {
 		<div className="flex items-baseline gap-3 mb-4">
 			<h2 className="text-[22px] font-bold tracking-tight text-ink">{title}</h2>
 			<div className="flex-1 h-px bg-line self-center" />
-			{count && <span className="font-mono text-[13px] text-muted">{count}</span>}
+			{count && <span className="font-mono text-[14px] text-muted">{count}</span>}
 		</div>
 	);
 }
@@ -48,9 +48,9 @@ const CONTACTS = [
 
 const DRAWER_NAV = [
 	{ href: "#proyectos", key: "nav.projects" },
-	{ href: "#faq", key: "nav.faq" },
 	{ href: "#stack", key: "nav.stack" },
 	{ href: "#contacto", key: "nav.contact" },
+	{ href: "#faq", key: "nav.faq" },
 ];
 
 function Hero() {
@@ -136,15 +136,6 @@ function Hero() {
 					{t("cta.projects")}
 					<i className="ti ti-arrow-down text-[16px]" aria-hidden="true" />
 				</a>
-				<a
-					href="/cv.pdf"
-					target="_blank"
-					rel="noopener noreferrer"
-					className="flex items-center gap-2 px-3 min-h-[48px] text-soft text-[16px] hover:text-ink transition-colors"
-				>
-					<i className="ti ti-file-cv text-[16px]" aria-hidden="true" />
-					{t("cta.cv")}
-				</a>
 			</div>
 		</section>
 	);
@@ -154,7 +145,7 @@ function MainContent() {
 	const { t } = useI18n();
 
 	return (
-		<div className="h-full overflow-y-auto scroll-smooth p-4 md:p-6 flex flex-col gap-10 [&>*]:shrink-0">
+		<div className="h-full overflow-y-auto scroll-smooth p-4 md:p-6 flex flex-col gap-6 md:gap-10 [&>*]:shrink-0">
 			<Hero />
 
 			<section id="proyectos" className="scroll-mt-4">
@@ -163,15 +154,10 @@ function MainContent() {
 					count={t("count.projects", { n: PROJECTS.length })}
 				/>
 				<div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
-					{PROJECTS.map((project) => (
-						<ProjectWindow key={project.id} project={project} />
+					{PROJECTS.map((project, i) => (
+						<ProjectWindow key={project.id} project={project} featured={i === 0} />
 					))}
 				</div>
-			</section>
-
-			<section id="faq" className="scroll-mt-4">
-				<SectionHeading title={t("section.faq")} />
-				<Faq />
 			</section>
 
 			<section id="stack" className="scroll-mt-4">
@@ -185,7 +171,7 @@ function MainContent() {
 				<ActivityFeed />
 			</div>
 
-			<section id="contacto" tabIndex={-1} className="scroll-mt-4 outline-none">
+			<section id="contacto" tabIndex={-1} className="md:hidden scroll-mt-4 outline-none">
 				<SectionHeading title={t("section.contact")} />
 				<div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
 					{CONTACTS.map(({ icon, key, value, href }) => (
@@ -209,6 +195,11 @@ function MainContent() {
 						</a>
 					))}
 				</div>
+			</section>
+
+			<section id="faq" className="scroll-mt-4">
+				<SectionHeading title={t("section.faq")} />
+				<Faq />
 			</section>
 		</div>
 	);
@@ -301,7 +292,7 @@ function MobileDrawer({ onClose }: { onClose: () => void }) {
 						</a>
 					))}
 				</div>
-				<OperatorPanel avatarSrc="/avatar.jpg" compact />
+				<OperatorPanel avatarSrc="/avatar.jpg" />
 			</div>
 		</div>
 	);
@@ -323,8 +314,27 @@ export function DashboardLayout() {
 			<TopBar onToggleSidebar={() => setSidebarOpen(true)} />
 
 			<div className="flex flex-1 min-h-0 overflow-hidden">
-				<aside className="hidden md:block w-[260px] shrink-0 border-r border-line overflow-y-auto">
+				<aside className="hidden md:flex md:flex-col gap-3 w-[260px] shrink-0 border-r border-line overflow-y-auto">
 					<OperatorPanel avatarSrc="/avatar.jpg" />
+					<div className="px-3 pb-3 flex flex-col gap-2">
+						{CONTACTS.map(({ icon, key, value, href }) => (
+							<a
+								key={key}
+								href={href}
+								target="_blank"
+								rel="noopener noreferrer"
+								className="flex items-center gap-2 px-3 min-h-[44px] rounded-lg border border-line bg-surface hover:border-accent-strong hover:bg-raised transition-colors group"
+							>
+								<i className={`ti ${icon} text-[16px] text-accent shrink-0`} aria-hidden="true" />
+								<div className="min-w-0">
+									<p className="text-[13px] text-muted">{t(key)}</p>
+									<p className="font-mono text-[13px] text-body truncate group-hover:text-accent transition-colors">
+										{value}
+									</p>
+								</div>
+							</a>
+						))}
+					</div>
 				</aside>
 
 				<main id="main" tabIndex={-1} className="flex-1 min-h-0 overflow-hidden outline-none">

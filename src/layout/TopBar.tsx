@@ -8,9 +8,8 @@ interface TopBarProps {
 
 const NAV = [
 	{ href: "#proyectos", key: "nav.projects" },
-	{ href: "#faq", key: "nav.faq" },
 	{ href: "#stack", key: "nav.stack" },
-	{ href: "#contacto", key: "nav.contact" },
+	{ href: "#faq", key: "nav.faq" },
 ];
 
 // Caracteres random para el glitch
@@ -105,7 +104,7 @@ export function TopBar({ onToggleSidebar }: TopBarProps) {
 					onClick={() => setLang(target)}
 					lang={target}
 					aria-label={t("lang.to")}
-					className="flex items-center justify-center gap-1.5 px-2.5 min-w-[44px] min-h-[44px] rounded border border-line font-mono text-[13px] uppercase text-muted hover:text-ink hover:border-line-strong transition-colors"
+					className="flex items-center justify-center gap-1.5 px-2.5 min-w-[44px] min-h-[44px] rounded border border-line font-mono text-[14px] uppercase text-muted hover:text-ink hover:border-line-strong transition-colors"
 				>
 					<i className="ti ti-language text-[16px]" aria-hidden="true" />
 					{target}

@@ -25,7 +25,7 @@ Una sola página con scroll: header solo de navegación e idioma (en móvil suma
 - No mostrar métricas hardcodeadas (líneas de código, coverage, años de experiencia): se eliminaron. El único dato numérico por proyecto es el conteo de commits de GitHub, que se oculta si la API falla.
 
 ## Evidence on Hand
-- Proyectos: Julian Cabrera Propiedades (juliancabrerapropiedades.com, en producción; repo `Inmobiliaria-Zanola`) y MigraScore (ranking de 8 países de destino migratorio, poblaciones-mundiales.vercel.app; repo `world-dashboard`; sin backend, datos estáticos; parte de los puntajes son estimaciones editoriales pendientes de validar, según su README).
+- Proyectos: Julian Cabrera Propiedades (juliancabrerapropiedades.com, en producción; repo `Julian-Cabrera-Propiedades`) , PlataRank (ranking de crafteo de Albion Online por plata/día, platarank.vercel.app, Next.js + Supabase) y MigraScore (ranking de 8 países de destino migratorio, poblaciones-mundiales.vercel.app; repo `infoemigrar`; sin backend, datos estáticos; parte de los puntajes son estimaciones editoriales pendientes de validar, según su README).
 - Actividad y commits reales vía GitHub (hooks `useGitHubActivity`, `useRepoCommits`).
 - No hay testimonios ni métricas de negocio verificadas: no fabricar.
 
