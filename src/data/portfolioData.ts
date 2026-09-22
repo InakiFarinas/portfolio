@@ -104,6 +104,8 @@ export const PROJECTS = [
 		repoUrl: "https://github.com/InakiFarinas/platarank",
 		repoName: "platarank",
 		stack: ["Next.js", "TypeScript", "Tailwind CSS", "Supabase"],
+		// El sitio manda X-Frame-Options: DENY / CSP frame-ancestors 'none': rechaza el iframe, se queda solo con la captura.
+		liveEmbed: false,
 	},
 	{
 		id: "migrascore",

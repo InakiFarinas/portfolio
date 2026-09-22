@@ -19,6 +19,8 @@ interface Project {
 	repoUrl: string;
 	repoName: string;
 	stack: string[];
+	/** false cuando el sitio manda X-Frame-Options/CSP y rechaza el iframe: se muestra solo la captura. */
+	liveEmbed?: boolean;
 }
 
 interface ProjectWindowProps {
@@ -60,6 +62,7 @@ export function ProjectWindow({ project, featured }: ProjectWindowProps) {
 	const wide =
 		typeof window !== "undefined" &&
 		window.matchMedia("(min-width: 768px)").matches;
+	const canEmbed = project.liveEmbed !== false;
 	const filename = useTypewriter(`${project.id}.tsx`, inView);
 	const title = t(`project.title.${project.id}`);
 	const description = t(`project.desc.${project.id}`);
@@ -111,7 +114,7 @@ export function ProjectWindow({ project, featured }: ProjectWindowProps) {
 						className="absolute inset-0 w-full h-full object-cover object-top"
 					/>
 				)}
-				{inView && wide && (
+				{inView && wide && canEmbed && (
 				<iframe
 					src={project.demoUrl}
 					className="absolute top-0 left-0 border-0 pointer-events-none"
@@ -149,7 +152,7 @@ export function ProjectWindow({ project, featured }: ProjectWindowProps) {
 						{t("project.client")}
 					</span>
 				)}
-				{inView && wide && (
+				{inView && wide && canEmbed && (
 					<span className="absolute bottom-3 left-3 flex items-center gap-1.5 text-[14px] px-2 py-0.5 rounded bg-canvas/90 border border-line text-muted">
 						<span className="w-1.5 h-1.5 rounded-full bg-ok animate-pulse" aria-hidden="true" />
 						{t("project.live")}
